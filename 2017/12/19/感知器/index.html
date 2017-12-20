@@ -7,7 +7,7 @@
 
 <html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
@@ -85,18 +85,18 @@
 
 
 
-<meta name="description" content="深度学习[TOC] 1. 感知器上图就是一个感知器。有如下部分构成：  输入权值 一个感知器可以接收多个输入$(x_1, x_2,…,x_n\mid x_i\in\Re)$，每个输入上有一个权值$w_i\in\Re$，此外还有一个偏置项$b\in\Re$，就是上图中的$w_0$。  激活函数 感知器的激活函数可以有很多选择，比如我们可以选择下面这个阶跃函数$f$来作为激活函数：   $$f(z)=">
+<meta name="description" content="深度学习 [TOC] 1. 感知器  上图就是一个感知器。有如下部分构成：  输入权值 一个感知器可以接收多个输入\((x_1, x_2,...,x_n\mid x_i\in\Re)\)，每个输入上有一个权值\(w_i\in\Re\)，此外还有一个偏置项\(b\in\Re\)，就是上图中的\(w_0\)。 激活函数 感知器的激活函数可以有很多选择，比如我们可以选择下面这个阶跃函数\(f\)来作为激">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度学习系列（1）">
 <meta property="og:url" content="http://otter668@github.io/2017/12/19/感知器/index.html">
 <meta property="og:site_name" content="coding@AIIT">
-<meta property="og:description" content="深度学习[TOC] 1. 感知器上图就是一个感知器。有如下部分构成：  输入权值 一个感知器可以接收多个输入$(x_1, x_2,…,x_n\mid x_i\in\Re)$，每个输入上有一个权值$w_i\in\Re$，此外还有一个偏置项$b\in\Re$，就是上图中的$w_0$。  激活函数 感知器的激活函数可以有很多选择，比如我们可以选择下面这个阶跃函数$f$来作为激活函数：   $$f(z)=">
+<meta property="og:description" content="深度学习 [TOC] 1. 感知器  上图就是一个感知器。有如下部分构成：  输入权值 一个感知器可以接收多个输入\((x_1, x_2,...,x_n\mid x_i\in\Re)\)，每个输入上有一个权值\(w_i\in\Re\)，此外还有一个偏置项\(b\in\Re\)，就是上图中的\(w_0\)。 激活函数 感知器的激活函数可以有很多选择，比如我们可以选择下面这个阶跃函数\(f\)来作为激">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15126369607114.jpg">
 <meta property="og:updated_time" content="2017-12-19T12:44:52.224Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习系列（1）">
-<meta name="twitter:description" content="深度学习[TOC] 1. 感知器上图就是一个感知器。有如下部分构成：  输入权值 一个感知器可以接收多个输入$(x_1, x_2,…,x_n\mid x_i\in\Re)$，每个输入上有一个权值$w_i\in\Re$，此外还有一个偏置项$b\in\Re$，就是上图中的$w_0$。  激活函数 感知器的激活函数可以有很多选择，比如我们可以选择下面这个阶跃函数$f$来作为激活函数：   $$f(z)=">
+<meta name="twitter:description" content="深度学习 [TOC] 1. 感知器  上图就是一个感知器。有如下部分构成：  输入权值 一个感知器可以接收多个输入\((x_1, x_2,...,x_n\mid x_i\in\Re)\)，每个输入上有一个权值\(w_i\in\Re\)，此外还有一个偏置项\(b\in\Re\)，就是上图中的\(w_0\)。 激活函数 感知器的激活函数可以有很多选择，比如我们可以选择下面这个阶跃函数\(f\)来作为激">
 <meta name="twitter:image" content="http://p082waf5e.bkt.clouddn.com/15126369607114.jpg">
 
 
@@ -133,7 +133,7 @@
 
 
 
-  <title>深度学习系列（1） | coding@AIIT</title>
+  <title>深度学习系列（1） | coding@AIIT</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -152,7 +152,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -378,67 +378,74 @@
       
 
       
-        <h1 id="深度学习"><a href="#深度学习" class="headerlink" title="深度学习"></a>深度学习</h1><p>[TOC]</p>
-<h2 id="1-感知器"><a href="#1-感知器" class="headerlink" title="1. 感知器"></a>1. 感知器</h2><p><img src="http://p082waf5e.bkt.clouddn.com/15126369607114.jpg" alt="感知器"><br>上图就是一个感知器。有如下部分构成：</p>
+        <h1 id="深度学习">深度学习</h1>
+<p>[TOC]</p>
+<h2 id="感知器">1. 感知器</h2>
+<p><img src="http://p082waf5e.bkt.clouddn.com/15126369607114.jpg" alt="感知器"> 上图就是一个感知器。有如下部分构成：</p>
 <ul>
-<li><p><strong>输入权值</strong> 一个感知器可以接收多个输入$(x_1, x_2,…,x_n\mid x_i\in\Re)$，每个输入上有一个权值$w_i\in\Re$，此外还有一个偏置项$b\in\Re$，就是上图中的$w_0$。</p>
-</li>
-<li><p><strong>激活函数</strong> 感知器的激活函数可以有很多选择，比如我们可以选择下面这个阶跃函数$f$来作为激活函数：</p>
-</li>
+<li><p><strong>输入权值</strong> 一个感知器可以接收多个输入<span class="math inline">\((x_1, x_2,...,x_n\mid x_i\in\Re)\)</span>，每个输入上有一个权值<span class="math inline">\(w_i\in\Re\)</span>，此外还有一个偏置项<span class="math inline">\(b\in\Re\)</span>，就是上图中的<span class="math inline">\(w_0\)</span>。</p></li>
+<li><p><strong>激活函数</strong> 感知器的激活函数可以有很多选择，比如我们可以选择下面这个阶跃函数<span class="math inline">\(f\)</span>来作为激活函数：</p></li>
 </ul>
-<p>$$f(z)=\begin{equation}\begin{cases}1\qquad z&gt;0\0\qquad otherwise\end{cases}\end{equation}$$</p>
+<p><span class="math display">\[f(z)=\begin{equation}\begin{cases}1\qquad z&gt;0\\0\qquad otherwise\end{cases}\end{equation}\]</span></p>
 <ul>
 <li><strong>输出</strong> 感知器的输出由下面这个公式来计算:</li>
 </ul>
-<p>$$y=f(\mathrm{w}\bullet\mathrm{x}+b)\qquad 公式(1)$$</p>
-<h2 id="2-感知器的训练"><a href="#2-感知器的训练" class="headerlink" title="2. 感知器的训练"></a>2. 感知器的训练</h2><p>现在，你可能困惑前面的权重项和偏置项的值是如何获得的呢？这就要用到感知器训练算法：将权重项和偏置项初始化为0，然后，利用下面的感知器规则迭代的修改$w_i$和$b$，直到训练完成。<br>$$\begin{align}<br>w_i&amp;\gets w_i+\Delta w_i \<br>b&amp;\gets b+\Delta b<br>\end{align}$$<br>其中:<br>$$\begin{align}<br>\Delta w_i&amp;=\eta(t-y)x_i \<br>\Delta b&amp;=\eta(t-y)<br>\end{align}$$<br>$w_i$是与输入$x_i$对应的权重项，$b$是偏置项。事实上，可以把$b$看作是值永远为1的输入$x_b$所对应的权重。$t$是训练样本的<strong>实际值</strong>，一般称之为<strong>label</strong>。而$y$是感知器的输出值，它是根据公式(1)计算得出。$\eta$是一个称为学习速率的常数，其作用是控制每一步调整权的幅度。</p>
-<p>每次从训练数据中取出一个样本的输入向量$x$，使用感知器计算其输出$y$，再根据上面的规则来调整权重。每处理一个样本就调整一次权重。经过多轮迭代后（即全部的训练数据被反复处理多轮），就可以训练出感知器的权重，使之实现目标函数。</p>
-<h2 id="3-编程实战"><a href="#3-编程实战" class="headerlink" title="3. 编程实战"></a>3. 编程实战</h2><blockquote>
+<p><span class="math display">\[y=f(\mathrm{w}\bullet\mathrm{x}+b)\qquad 公式(1)\]</span> ## 2. 感知器的训练</p>
+<p>现在，你可能困惑前面的权重项和偏置项的值是如何获得的呢？这就要用到感知器训练算法：将权重项和偏置项初始化为0，然后，利用下面的感知器规则迭代的修改<span class="math inline">\(w_i\)</span>和<span class="math inline">\(b\)</span>，直到训练完成。 <span class="math display">\[\begin{align}
+w_i&amp;\gets w_i+\Delta w_i \\
+b&amp;\gets b+\Delta b
+\end{align}\]</span> 其中: <span class="math display">\[\begin{align}
+\Delta w_i&amp;=\eta(t-y)x_i \\
+\Delta b&amp;=\eta(t-y)
+\end{align}\]</span> <span class="math inline">\(w_i\)</span>是与输入<span class="math inline">\(x_i\)</span>对应的权重项，<span class="math inline">\(b\)</span>是偏置项。事实上，可以把<span class="math inline">\(b\)</span>看作是值永远为1的输入<span class="math inline">\(x_b\)</span>所对应的权重。<span class="math inline">\(t\)</span>是训练样本的<strong>实际值</strong>，一般称之为<strong>label</strong>。而<span class="math inline">\(y\)</span>是感知器的输出值，它是根据公式(1)计算得出。<span class="math inline">\(\eta\)</span>是一个称为学习速率的常数，其作用是控制每一步调整权的幅度。</p>
+<p>每次从训练数据中取出一个样本的输入向量<span class="math inline">\(x\)</span>，使用感知器计算其输出<span class="math inline">\(y\)</span>，再根据上面的规则来调整权重。每处理一个样本就调整一次权重。经过多轮迭代后（即全部的训练数据被反复处理多轮），就可以训练出感知器的权重，使之实现目标函数。 ## 3. 编程实战</p>
+<blockquote>
 <p>完整代码请参考GitHub: <a href="https://github.com/hanbt/learn_dl/blob/master/perceptron.py" target="_blank" rel="noopener">GitHub-Perceptron</a> (python2.7)</p>
 </blockquote>
-<p>我们来用Python3实现一个感知器，并训练实现一个<code>and</code>函数。<br><strong>例子：用感知器实现<code>and</code>函数</strong><br>我们设计一个感知器，让它来实现<code>and</code>运算。程序员都知道，<code>and</code>是一个二元函数（带有两个参数$x_1$和$x_2$），下面是它的<strong>真值表</strong>：</p>
+<p>我们来用Python3实现一个感知器，并训练实现一个<code>and</code>函数。 <strong>例子：用感知器实现<code>and</code>函数</strong> 我们设计一个感知器，让它来实现<code>and</code>运算。程序员都知道，<code>and</code>是一个二元函数（带有两个参数<span class="math inline">\(x_1\)</span>和<span class="math inline">\(x_2\)</span>），下面是它的<strong>真值表</strong>：</p>
 <table>
 <thead>
-<tr>
-<th>$x_1$</th>
-<th>$x_2$</th>
-<th>$y$</th>
+<tr class="header">
+<th><span class="math inline">\(x_1\)</span></th>
+<th><span class="math inline">\(x_2\)</span></th>
+<th><span class="math inline">\(y\)</span></th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>0</td>
 <td>0</td>
 <td>0</td>
 </tr>
-<tr>
+<tr class="even">
 <td>0</td>
 <td>1</td>
 <td>0</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>1</td>
 <td>0</td>
 <td>0</td>
 </tr>
-<tr>
+<tr class="even">
 <td>1</td>
 <td>1</td>
 <td>1</td>
 </tr>
 </tbody>
 </table>
-<p>我们令$w_1=0.5;w_2=0.5;b=-0.8$，而激活函数$f$就是前面写出来的阶跃函数，这时，感知器就相当于<code>and</code>函数。<br>下面是感知器类的实现，非常简单。去掉注释只有27行，而且还包括为了美观（每行不超过60个字符）而增加的很多换行。</p>
+<p>我们令<span class="math inline">\(w_1=0.5;w_2=0.5;b=-0.8\)</span>，而激活函数<span class="math inline">\(f\)</span>就是前面写出来的阶跃函数，这时，感知器就相当于<code>and</code>函数。 下面是感知器类的实现，非常简单。去掉注释只有27行，而且还包括为了美观（每行不超过60个字符）而增加的很多换行。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env Python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Perceptron</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, input_num, activator)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        初始化感知器，设置输入参数的个数，以及激活函数。</span></span><br><span class="line"><span class="string">        激活函数的类型为double -&gt; double</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        self.activator = activator</span><br><span class="line">        <span class="comment"># 权重向量初始化为0</span></span><br><span class="line">        self.weights = [<span class="number">0.0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(input_num)]</span><br><span class="line">        <span class="comment"># 偏置项初始化为0</span></span><br><span class="line">        self.bias = <span class="number">0.0</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        打印学习到的权重、偏置项</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'weights\t:%s\nbias\t:%f\n'</span> % (self.weights, self.bias)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">predict</span><span class="params">(self, input_vec)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        输入向量，输出感知器的计算结果</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># 把input_vec[x1,x2,x3...]和weights[w1,w2,w3,...]打包在一起</span></span><br><span class="line">        <span class="comment"># 变成[(x1,w1),(x2,w2),(x3,w3),...]</span></span><br><span class="line">        <span class="comment"># 然后利用map函数计算[x1*w1, x2*w2, x3*w3]</span></span><br><span class="line">        <span class="comment"># 最后利用reduce求和</span></span><br><span class="line">        <span class="keyword">return</span> self.activator(</span><br><span class="line">            reduce(<span class="keyword">lambda</span> a, b: a + b,</span><br><span class="line">                   map(<span class="keyword">lambda</span> x_w: x_w[<span class="number">0</span>] * x_w[<span class="number">1</span>],</span><br><span class="line">                       zip(input_vec, self.weights)),</span><br><span class="line">                   <span class="number">0.0</span>) + self.bias)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(self, input_vecs, labels, iteration, rate)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        输入训练数据：一组向量、与每个向量对应的label；以及训练轮数、学习率</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(iteration):</span><br><span class="line">            self._one_iteration(input_vecs, labels, rate)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_one_iteration</span><span class="params">(self, input_vecs, labels, rate)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        一次迭代，把所有的训练数据过一遍</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># 把输入和输出打包在一起，成为样本的列表[(input_vec, label), ...]</span></span><br><span class="line">        <span class="comment"># 而每个训练样本是(input_vec, label)</span></span><br><span class="line">        samples = zip(input_vecs, labels)</span><br><span class="line">        <span class="comment"># 对每个样本，按照感知器规则更新权重</span></span><br><span class="line">        <span class="keyword">for</span> (input_vec, label) <span class="keyword">in</span> samples:</span><br><span class="line">            <span class="comment"># 计算感知器在当前权重下的输出</span></span><br><span class="line">            output = self.predict(input_vec)</span><br><span class="line">            <span class="comment"># 更新权重</span></span><br><span class="line">            self._update_weights(input_vec, output, label, rate)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_update_weights</span><span class="params">(self, input_vec, output, label, rate)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        按照感知器规则更新权重</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># 把input_vec[x1,x2,x3,...]和weights[w1,w2,w3,...]打包在一起</span></span><br><span class="line">        <span class="comment"># 变成[(x1,w1),(x2,w2),(x3,w3),...]</span></span><br><span class="line">        <span class="comment"># 然后利用感知器规则更新权重</span></span><br><span class="line">        delta = label - output</span><br><span class="line">        self.weights = list(map(</span><br><span class="line">            <span class="keyword">lambda</span> x_w: x_w[<span class="number">1</span>] + rate * delta * x_w[<span class="number">0</span>],</span><br><span class="line">            zip(input_vec, self.weights)))</span><br><span class="line">        <span class="comment"># 更新bias</span></span><br><span class="line">        self.bias += rate * delta</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    定义激活函数f</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> <span class="keyword">if</span> x &gt; <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_training_dataset</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    基于and真值表构建训练数据</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment"># 构建训练数据</span></span><br><span class="line">    <span class="comment"># 输入向量列表</span></span><br><span class="line">    input_vecs = [[<span class="number">1</span>, <span class="number">1</span>], [<span class="number">0</span>, <span class="number">0</span>], [<span class="number">1</span>, <span class="number">0</span>], [<span class="number">0</span>, <span class="number">1</span>]]</span><br><span class="line">    <span class="comment"># 期望的输出列表，注意要与输入一一对应</span></span><br><span class="line">    <span class="comment"># [1,1] -&gt; 1, [0,0] -&gt; 0, [1,0] -&gt; 0, [0,1] -&gt; 0</span></span><br><span class="line">    labels = [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]</span><br><span class="line">    <span class="keyword">return</span> input_vecs, labels</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train_and_perceptron</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    使用and真值表训练感知器</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment"># 创建感知器，输入参数个数为2（因为and是二元函数），激活函数为f</span></span><br><span class="line">    p = Perceptron(<span class="number">2</span>, f)</span><br><span class="line">    <span class="comment"># 训练，迭代10轮, 学习速率为0.1</span></span><br><span class="line">    input_vecs, labels = get_training_dataset()</span><br><span class="line">    p.train(input_vecs, labels, <span class="number">10</span>, <span class="number">0.1</span>)</span><br><span class="line">    <span class="comment"># 返回训练好的感知器</span></span><br><span class="line">    <span class="keyword">return</span> p</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 训练and感知器</span></span><br><span class="line">    and_perception = train_and_perceptron()</span><br><span class="line">    <span class="comment"># 打印训练获得的权重</span></span><br><span class="line">    print(and_perception)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 测试</span></span><br><span class="line">    print(<span class="string">'1 and 1 = %d'</span> % and_perception.predict([<span class="number">1</span>, <span class="number">1</span>]))</span><br><span class="line">    print(<span class="string">'0 and 0 = %d'</span> % and_perception.predict([<span class="number">0</span>, <span class="number">0</span>]))</span><br><span class="line">    print(<span class="string">'1 and 0 = %d'</span> % and_perception.predict([<span class="number">1</span>, <span class="number">0</span>]))</span><br><span class="line">    print(<span class="string">'0 and 1 = %d'</span> % and_perception.predict([<span class="number">0</span>, <span class="number">1</span>]))</span><br></pre></td></tr></table></figure>
-<h2 id="4-后记"><a href="#4-后记" class="headerlink" title="4. 后记"></a>4. 后记</h2><p>感知器算法的流程：</p>
-<ol>
-<li>训练模型<ol>
+<h2 id="后记">4. 后记</h2>
+<p>感知器算法的流程：</p>
+<ol type="1">
+<li>训练模型
+<ol type="1">
 <li>获取已知数据</li>
-<li>训练，计算$y=f(\mathrm{w}\bullet\mathrm{x}+b)$</li>
+<li>训练，计算<span class="math inline">\(y=f(\mathrm{w}\bullet\mathrm{x}+b)\)</span></li>
 <li>循环多次去根据现有参数预测结果</li>
 <li>根据预测结果更新参数</li>
-</ol>
-</li>
+</ol></li>
 <li>预测数据</li>
 </ol>
 <p><strong>一个神经元的感知器模型只能模拟线性函数。</strong></p>
@@ -601,7 +608,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#深度学习"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x6DF1;&#x5EA6;&#x5B66;&#x4E60;" class="headerlink" title="&#x6DF1;&#x5EA6;&#x5B66;&#x4E60;"></a>&#x6DF1;&#x5EA6;&#x5B66;&#x4E60;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-感知器"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#1-&#x611F;&#x77E5;&#x5668;" class="headerlink" title="1. &#x611F;&#x77E5;&#x5668;"></a>1. &#x611F;&#x77E5;&#x5668;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-感知器的训练"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#2-&#x611F;&#x77E5;&#x5668;&#x7684;&#x8BAD;&#x7EC3;" class="headerlink" title="2. &#x611F;&#x77E5;&#x5668;&#x7684;&#x8BAD;&#x7EC3;"></a>2. &#x611F;&#x77E5;&#x5668;&#x7684;&#x8BAD;&#x7EC3;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-编程实战"><span class="nav-number">1.3.</span> <span class="nav-text"><a href="#3-&#x7F16;&#x7A0B;&#x5B9E;&#x6218;" class="headerlink" title="3. &#x7F16;&#x7A0B;&#x5B9E;&#x6218;"></a>3. &#x7F16;&#x7A0B;&#x5B9E;&#x6218;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-后记"><span class="nav-number">1.4.</span> <span class="nav-text"><a href="#4-&#x540E;&#x8BB0;" class="headerlink" title="4. &#x540E;&#x8BB0;"></a>4. &#x540E;&#x8BB0;</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#深度学习"><span class="nav-number">1.</span> <span class="nav-text">&#x6DF1;&#x5EA6;&#x5B66;&#x4E60;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#感知器"><span class="nav-number">1.1.</span> <span class="nav-text">1. &#x611F;&#x77E5;&#x5668;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后记"><span class="nav-number">1.2.</span> <span class="nav-text">4. &#x540E;&#x8BB0;</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -635,7 +642,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">19.3k</span>
+    <span title="Site words total count">19.4k</span>
   
 </div>
 
@@ -817,6 +824,45 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
 
   
 
