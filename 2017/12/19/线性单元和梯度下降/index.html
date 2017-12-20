@@ -72,13 +72,13 @@
 
 
 
-  <meta name="keywords" content="Python,NLP,Hexo" />
+  <meta name="keywords" content="DeepLearning,linearunit," />
 
 
 
 
 
-  <link rel="alternate" href="/atom.xml" title="coding@AIIT" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="NLPer" type="application/atom+xml" />
 
 
 
@@ -86,10 +86,11 @@
 
 
 <meta name="description" content="线性单元和梯度下降 [TOC] ## 0. 往期回顾 在上一篇文章中，我们已经学会了编写一个简单的感知器，并用它来实现一个线性分类器。你应该还记得用来训练感知器的『感知器规则』。然而，我们并没有关心这个规则是怎么得到的。本文通过介绍另外一种『感知器』，也就是『线性单元』，来说明关于机器学习一些基本的概念，比如模型、目标函数、优化算法等等。这些概念对于所有的机器学习算法来说都是通用的，掌握了这些概念">
+<meta name="keywords" content="DeepLearning,linearunit">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度学习系列（2）">
 <meta property="og:url" content="http://otter668@github.io/2017/12/19/线性单元和梯度下降/index.html">
-<meta property="og:site_name" content="coding@AIIT">
+<meta property="og:site_name" content="NLPer">
 <meta property="og:description" content="线性单元和梯度下降 [TOC] ## 0. 往期回顾 在上一篇文章中，我们已经学会了编写一个简单的感知器，并用它来实现一个线性分类器。你应该还记得用来训练感知器的『感知器规则』。然而，我们并没有关心这个规则是怎么得到的。本文通过介绍另外一种『感知器』，也就是『线性单元』，来说明关于机器学习一些基本的概念，比如模型、目标函数、优化算法等等。这些概念对于所有的机器学习算法来说都是通用的，掌握了这些概念">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15135607306804.jpg">
@@ -98,7 +99,7 @@
 <meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15135682427407.jpg">
 <meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15135753958718.jpg">
 <meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15135754098432.jpg">
-<meta property="og:updated_time" content="2017-12-19T12:45:14.006Z">
+<meta property="og:updated_time" content="2017-12-20T02:56:08.992Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习系列（2）">
 <meta name="twitter:description" content="线性单元和梯度下降 [TOC] ## 0. 往期回顾 在上一篇文章中，我们已经学会了编写一个简单的感知器，并用它来实现一个线性分类器。你应该还记得用来训练感知器的『感知器规则』。然而，我们并没有关心这个规则是怎么得到的。本文通过介绍另外一种『感知器』，也就是『线性单元』，来说明关于机器学习一些基本的概念，比如模型、目标函数、优化算法等等。这些概念对于所有的机器学习算法来说都是通用的，掌握了这些概念">
@@ -138,7 +139,7 @@
 
 
 
-  <title>深度学习系列（2） | coding@AIIT</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>深度学习系列（2） | NLPer</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -168,7 +169,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">coding@AIIT</span>
+        <span class="site-title">NLPer</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -242,16 +243,6 @@
           </a>
         </li>
       
-        
-        <li class="menu-item menu-item-sitemap">
-          <a href="/sitemap.xml" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
-            
-            站点地图
-          </a>
-        </li>
-      
 
       
     </ul>
@@ -290,11 +281,11 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Gaochao">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/2328224?s=400&v=4">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="coding@AIIT">
+      <meta itemprop="name" content="NLPer">
     </span>
 
     
@@ -324,6 +315,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/科研/" itemprop="url" rel="index">
+                    <span itemprop="name">科研</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -568,6 +581,14 @@ x_m^{(i)} \\
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/DeepLearning/" rel="tag"># DeepLearning</a>
+          
+            <a href="/tags/linearunit/" rel="tag"># linearunit</a>
+          
+        </div>
+      
 
       
       
@@ -655,6 +676,10 @@ x_m^{(i)} \\
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars1.githubusercontent.com/u/2328224?s=400&v=4"
+                alt="Gaochao" />
+            
               <p class="site-author-name" itemprop="name">Gaochao</p>
               <p class="site-description motion-element" itemprop="description">Python NLP</p>
           </div>
@@ -673,7 +698,25 @@ x_m^{(i)} \\
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>
@@ -688,6 +731,32 @@ x_m^{(i)} \\
           
 
           <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:chaogao@aiit.edu.cn" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/otter668" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/54262426" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/otter668" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-zhihu"></i>知乎</a>
+                </span>
+              
             
           </div>
 

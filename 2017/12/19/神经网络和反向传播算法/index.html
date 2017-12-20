@@ -72,15 +72,13 @@
 
 
 
-  <meta name="keywords" content="Python,NLP,Hexo" />
+  <meta name="keywords" content="DeepLearning,ANN,BP," />
 
 
 
 
-  
 
-
-  <link rel="alternate" href="/atom.xml" title="coding@AIIT" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="NLPer" type="application/atom+xml" />
 
 
 
@@ -88,10 +86,11 @@
 
 
 <meta name="description" content="神经网络和反向传播算法 0. 往期回顾 在上一篇文章中，我们已经掌握了机器学习的基本套路，对模型、目标函数、优化算法这些概念有了一定程度的理解，而且已经会训练单个的感知器或者线性单元了。在这篇文章中，我们将把这些单独的单元按照一定的规则相互连接在一起形成神经网络，从而奇迹般的获得了强大的学习能力。我们还将介绍这种网络的训练算法：反向传播算法。最后，我们依然用代码实现一个神经网络。如果您能坚持到本文">
+<meta name="keywords" content="DeepLearning,ANN,BP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度学习系列（3）">
 <meta property="og:url" content="http://otter668@github.io/2017/12/19/神经网络和反向传播算法/index.html">
-<meta property="og:site_name" content="coding@AIIT">
+<meta property="og:site_name" content="NLPer">
 <meta property="og:description" content="神经网络和反向传播算法 0. 往期回顾 在上一篇文章中，我们已经掌握了机器学习的基本套路，对模型、目标函数、优化算法这些概念有了一定程度的理解，而且已经会训练单个的感知器或者线性单元了。在这篇文章中，我们将把这些单独的单元按照一定的规则相互连接在一起形成神经网络，从而奇迹般的获得了强大的学习能力。我们还将介绍这种网络的训练算法：反向传播算法。最后，我们依然用代码实现一个神经网络。如果您能坚持到本文">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15135819090375.jpg">
@@ -102,7 +101,7 @@
 <meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15135886688854.jpg">
 <meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15135897556797.jpg">
 <meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15136009452670.jpg">
-<meta property="og:updated_time" content="2017-12-19T12:58:36.558Z">
+<meta property="og:updated_time" content="2017-12-20T03:09:50.571Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习系列（3）">
 <meta name="twitter:description" content="神经网络和反向传播算法 0. 往期回顾 在上一篇文章中，我们已经掌握了机器学习的基本套路，对模型、目标函数、优化算法这些概念有了一定程度的理解，而且已经会训练单个的感知器或者线性单元了。在这篇文章中，我们将把这些单独的单元按照一定的规则相互连接在一起形成神经网络，从而奇迹般的获得了强大的学习能力。我们还将介绍这种网络的训练算法：反向传播算法。最后，我们依然用代码实现一个神经网络。如果您能坚持到本文">
@@ -142,7 +141,7 @@
 
 
 
-  <title>深度学习系列（3） | coding@AIIT</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>深度学习系列（3） | NLPer</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -172,7 +171,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">coding@AIIT</span>
+        <span class="site-title">NLPer</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -246,16 +245,6 @@
           </a>
         </li>
       
-        
-        <li class="menu-item menu-item-sitemap">
-          <a href="/sitemap.xml" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
-            
-            站点地图
-          </a>
-        </li>
-      
 
       
     </ul>
@@ -294,11 +283,11 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Gaochao">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/2328224?s=400&v=4">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="coding@AIIT">
+      <meta itemprop="name" content="NLPer">
     </span>
 
     
@@ -328,6 +317,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/科研/" itemprop="url" rel="index">
+                    <span itemprop="name">科研</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -739,6 +750,16 @@ w_{ji}&amp;\gets w_{ji}-\eta\frac{\partial{E_d}}{\partial{w_{ji}}}\\
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/DeepLearning/" rel="tag"># DeepLearning</a>
+          
+            <a href="/tags/ANN/" rel="tag"># ANN</a>
+          
+            <a href="/tags/BP/" rel="tag"># BP</a>
+          
+        </div>
+      
 
       
       
@@ -822,6 +843,10 @@ w_{ji}&amp;\gets w_{ji}-\eta\frac{\partial{E_d}}{\partial{w_{ji}}}\\
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars1.githubusercontent.com/u/2328224?s=400&v=4"
+                alt="Gaochao" />
+            
               <p class="site-author-name" itemprop="name">Gaochao</p>
               <p class="site-description motion-element" itemprop="description">Python NLP</p>
           </div>
@@ -840,7 +865,25 @@ w_{ji}&amp;\gets w_{ji}-\eta\frac{\partial{E_d}}{\partial{w_{ji}}}\\
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>
@@ -855,6 +898,32 @@ w_{ji}&amp;\gets w_{ji}-\eta\frac{\partial{E_d}}{\partial{w_{ji}}}\\
           
 
           <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:chaogao@aiit.edu.cn" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/otter668" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/54262426" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/otter668" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-zhihu"></i>知乎</a>
+                </span>
+              
             
           </div>
 
