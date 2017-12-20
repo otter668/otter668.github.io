@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://otter668@github.io/about/index.html</loc>
+    
+    <lastmod>2017-12-20T08:47:10.517Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://otter668@github.io/2017/12/19/hello-world/</loc>
     
     <lastmod>2017-12-20T08:15:24.521Z</lastmod>
@@ -26,13 +33,6 @@
     <loc>http://otter668@github.io/2017/12/19/%E7%BA%BF%E6%80%A7%E5%8D%95%E5%85%83%E5%92%8C%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/</loc>
     
     <lastmod>2017-12-20T08:14:18.508Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://otter668@github.io/about/index.html</loc>
-    
-    <lastmod>2017-12-20T08:10:17.413Z</lastmod>
     
   </url>
   
