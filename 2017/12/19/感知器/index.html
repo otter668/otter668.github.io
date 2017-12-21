@@ -94,7 +94,7 @@
 <meta property="og:description" content="深度学习 1. 感知器  上图就是一个感知器。有如下部分构成：">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15126369607114.jpg">
-<meta property="og:updated_time" content="2017-12-20T08:14:39.832Z">
+<meta property="og:updated_time" content="2017-12-21T07:31:33.115Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习系列（1）">
 <meta name="twitter:description" content="深度学习 1. 感知器  上图就是一个感知器。有如下部分构成：">
@@ -359,7 +359,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,540
+                  1,696
                 </span>
               
 
@@ -398,7 +398,8 @@
       
         <h1 id="深度学习">深度学习</h1>
 <h2 id="感知器">1. 感知器</h2>
-<p><img src="http://p082waf5e.bkt.clouddn.com/15126369607114.jpg" alt="感知器"> 上图就是一个感知器。有如下部分构成： <a id="more"></a></p>
+<p><img src="http://p082waf5e.bkt.clouddn.com/15126369607114.jpg" alt="感知器"> 上图就是一个感知器。有如下部分构成：</p>
+<a id="more"></a>
 <ul>
 <li><p><strong>输入权值</strong> 一个感知器可以接收多个输入<span class="math inline">\((x_1, x_2,...,x_n\mid x_i\in\Re)\)</span>，每个输入上有一个权值<span class="math inline">\(w_i\in\Re\)</span>，此外还有一个偏置项<span class="math inline">\(b\in\Re\)</span>，就是上图中的<span class="math inline">\(w_0\)</span>。</p></li>
 <li><p><strong>激活函数</strong> 感知器的激活函数可以有很多选择，比如我们可以选择下面这个阶跃函数<span class="math inline">\(f\)</span>来作为激活函数：</p></li>
@@ -472,6 +473,16 @@ b&amp;\gets b+\Delta b
 <li>预测数据</li>
 </ol>
 <p><strong>一个神经元的感知器模型只能模拟线性函数。</strong></p>
+<p>每个感知器单元的功能：</p>
+<ol type="1">
+<li>初始化感知器，设置输入参数的个数，以及激活函数。</li>
+<li>输入训练数据：一组向量、与每个向量对应的label；以及训练轮数、学习率。根据训练轮数进行训练：
+<ol type="1">
+<li>一次迭代，把所有的训练数据过一遍，即预测一遍。</li>
+<li>按照感知器规则更新权重</li>
+</ol></li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Perceptron</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,input_num, activator)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">predict</span><span class="params">(self, input_vec)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(self, input_vecs, labels, iteration, rate)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_one_iteration</span><span class="params">(self, input_vecs, labels, rate)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_update_weights</span><span class="params">(self, input_vec, output, label, rate)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -772,7 +783,7 @@ b&amp;\gets b+\Delta b
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">19.3k</span>
+    <span title="Site words total count">19.5k</span>
   
 </div>
 
