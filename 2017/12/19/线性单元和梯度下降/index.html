@@ -85,13 +85,13 @@
 
 
 
-<meta name="description" content="线性单元和梯度下降 0. 往期回顾 在上一篇文章中，我们已经学会了编写一个简单的感知器，并用它来实现一个线性分类器。你应该还记得用来训练感知器的『感知器规则』。然而，我们并没有关心这个规则是怎么得到的。本文通过介绍另外一种『感知器』，也就是『线性单元』，来说明关于机器学习一些基本的概念，比如模型、目标函数、优化算法等等。这些概念对于所有的机器学习算法来说都是通用的，掌握了这些概念，就掌握了机器学习">
+<meta name="description" content="线性单元和梯度下降 往期回顾 在上一篇文章中，我们已经学会了编写一个简单的感知器，并用它来实现一个线性分类器。你应该还记得用来训练感知器的『感知器规则』。然而，我们并没有关心这个规则是怎么得到的。本文通过介绍另外一种『感知器』，也就是『线性单元』，来说明关于机器学习一些基本的概念，比如模型、目标函数、优化算法等等。这些概念对于所有的机器学习算法来说都是通用的，掌握了这些概念，就掌握了机器学习的基本">
 <meta name="keywords" content="DeepLearning,linearunit">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度学习系列（2）">
 <meta property="og:url" content="http://otter668@github.io/2017/12/19/线性单元和梯度下降/index.html">
 <meta property="og:site_name" content="NLPer">
-<meta property="og:description" content="线性单元和梯度下降 0. 往期回顾 在上一篇文章中，我们已经学会了编写一个简单的感知器，并用它来实现一个线性分类器。你应该还记得用来训练感知器的『感知器规则』。然而，我们并没有关心这个规则是怎么得到的。本文通过介绍另外一种『感知器』，也就是『线性单元』，来说明关于机器学习一些基本的概念，比如模型、目标函数、优化算法等等。这些概念对于所有的机器学习算法来说都是通用的，掌握了这些概念，就掌握了机器学习">
+<meta property="og:description" content="线性单元和梯度下降 往期回顾 在上一篇文章中，我们已经学会了编写一个简单的感知器，并用它来实现一个线性分类器。你应该还记得用来训练感知器的『感知器规则』。然而，我们并没有关心这个规则是怎么得到的。本文通过介绍另外一种『感知器』，也就是『线性单元』，来说明关于机器学习一些基本的概念，比如模型、目标函数、优化算法等等。这些概念对于所有的机器学习算法来说都是通用的，掌握了这些概念，就掌握了机器学习的基本">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15135607306804.jpg">
 <meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15135607524186.jpg">
@@ -99,10 +99,10 @@
 <meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15135682427407.jpg">
 <meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15135753958718.jpg">
 <meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15135754098432.jpg">
-<meta property="og:updated_time" content="2017-12-20T08:14:18.508Z">
+<meta property="og:updated_time" content="2018-01-04T06:45:29.361Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习系列（2）">
-<meta name="twitter:description" content="线性单元和梯度下降 0. 往期回顾 在上一篇文章中，我们已经学会了编写一个简单的感知器，并用它来实现一个线性分类器。你应该还记得用来训练感知器的『感知器规则』。然而，我们并没有关心这个规则是怎么得到的。本文通过介绍另外一种『感知器』，也就是『线性单元』，来说明关于机器学习一些基本的概念，比如模型、目标函数、优化算法等等。这些概念对于所有的机器学习算法来说都是通用的，掌握了这些概念，就掌握了机器学习">
+<meta name="twitter:description" content="线性单元和梯度下降 往期回顾 在上一篇文章中，我们已经学会了编写一个简单的感知器，并用它来实现一个线性分类器。你应该还记得用来训练感知器的『感知器规则』。然而，我们并没有关心这个规则是怎么得到的。本文通过介绍另外一种『感知器』，也就是『线性单元』，来说明关于机器学习一些基本的概念，比如模型、目标函数、优化算法等等。这些概念对于所有的机器学习算法来说都是通用的，掌握了这些概念，就掌握了机器学习的基本">
 <meta name="twitter:image" content="http://p082waf5e.bkt.clouddn.com/15135607306804.jpg">
 
 
@@ -364,7 +364,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  5,268
+                  5,303
                 </span>
               
 
@@ -402,17 +402,17 @@
 
       
         <h1 id="线性单元和梯度下降">线性单元和梯度下降</h1>
-<h2 id="往期回顾">0. 往期回顾</h2>
+<h2 id="往期回顾">往期回顾</h2>
 <p>在上一篇文章中，我们已经学会了编写一个简单的感知器，并用它来实现一个<strong>线性分类</strong>器。你应该还记得用来训练感知器的『感知器规则』。然而，我们并没有关心这个规则是怎么得到的。本文通过介绍另外一种『感知器』，也就是『线性单元』，来说明关于机器学习一些基本的概念，比如模型、目标函数、优化算法等等。这些概念对于所有的机器学习算法来说都是通用的，掌握了这些概念，就掌握了机器学习的基本套路。 <a id="more"></a></p>
-<h2 id="线性单元是啥">1. 线性单元是啥</h2>
+<h2 id="线性单元是啥">线性单元是啥</h2>
 <p>感知器有一个问题，当面对的数据集不是线性可分的时候，『感知器规则』可能无法收敛，这意味着我们永远也无法完成一个感知器的训练。为了解决这个问题，我们使用一个可导的线性函数来替代感知器的阶跃函数，这种感知器就叫做线性单元。线性单元在面对线性不可分的数据集时，会收敛到一个最佳的近似上。</p>
-<p>为了简单起见，我们可以设置线性单元的激活函数<span class="math inline">\(f\)</span>为 <span class="math display">\[f(x)=x\]</span> 这样的线性单元如下图所示 <img src="http://p082waf5e.bkt.clouddn.com/15135607306804.jpg"> 对比此前我们讲过的感知器 <img src="http://p082waf5e.bkt.clouddn.com/15135607524186.jpg"> 这样替换了激活函数<span class="math inline">\(f\)</span>之后，线性单元将返回一个<strong>实数值</strong>而不是0,1分类。因此线性单元用来解决<strong>回归问题</strong>而不是分类问题。 ## 2. 线性单元的模型 当我们说模型时，我们实际上在谈论根据输入<span class="math inline">\(x\)</span>预测输出<span class="math inline">\(y\)</span>的算法。比如，<span class="math inline">\(x\)</span>可以是一个人的工作年限，<span class="math inline">\(y\)</span>可以是他的月薪，我们可以用某种算法来根据一个人的工作年限来预测他的收入。比如： <span class="math display">\[y=h(x)=w*x+b\]</span> 函数<span class="math inline">\(h(x)\)</span>叫做假设，而<span class="math inline">\(w\)</span>、<span class="math inline">\(b\)</span>是它的参数。我们假设参数<span class="math inline">\(w=1000\)</span>，参数<span class="math inline">\(b=500\)</span>，如果一个人的工作年限是5年的话，我们的模型会预测他的月薪为 <span class="math display">\[y=h(x)=1000*5+500=5500(元)\]</span> 你也许会说，这个模型太不靠谱了。是这样的，因为我们考虑的因素太少了，仅仅包含了工作年限。如果考虑更多的因素，比如所处的行业、公司、职级等等，可能预测就会靠谱的多。我们把工作年限、行业、公司、职级这些信息，称之为特征。对于一个工作了5年，在IT行业，百度工作，职级T6这样的人，我们可以用这样的一个特征向量来表示他 <span class="math display">\[x = (5, IT, 百度, T6)\]</span> 既然输入<span class="math inline">\(x\)</span>变成了一个具备四个特征的向量，相对应的，仅仅一个参数<span class="math inline">\(w\)</span>就不够用了，我们应该使用4个参数<span class="math inline">\(w_1\)</span>,<span class="math inline">\(w_2\)</span>,<span class="math inline">\(w_3\)</span>,<span class="math inline">\(w_4\)</span>，每个特征对应一个。这样，我们的模型就变成 <span class="math display">\[y=h(x)=w_1*x_1+w_2*x_2+w_3*x_3+w_4*x_4+b\]</span> 其中，<span class="math inline">\(x_1\)</span>对应工作年限，<span class="math inline">\(x_2\)</span>对应行业，<span class="math inline">\(x_3\)</span>对应公司，<span class="math inline">\(x_4\)</span>对应职级。 为了书写和计算方便，我们可以令<span class="math inline">\(w_0\)</span>等于<span class="math inline">\(b\)</span>，同时令<span class="math inline">\(w_0\)</span>对应于特征<span class="math inline">\(x_0\)</span>。由于<span class="math inline">\(x_0\)</span>其实并不存在，我们可以令它的值永远为1。也就是说 <span class="math display">\[b=w_0*x_0\qquad 其中x_0=1\]</span> 这样上面的式子就可以写成 <span class="math display">\[\begin{align}
+<p>为了简单起见，我们可以设置线性单元的激活函数<span class="math inline">\(f\)</span>为 <span class="math display">\[f(x)=x\]</span> 这样的线性单元如下图所示 <img src="http://p082waf5e.bkt.clouddn.com/15135607306804.jpg"> 对比此前我们讲过的感知器 <img src="http://p082waf5e.bkt.clouddn.com/15135607524186.jpg"> 这样替换了激活函数<span class="math inline">\(f\)</span>之后，线性单元将返回一个<strong>实数值</strong>而不是0,1分类。因此线性单元用来解决<strong>回归问题</strong>而不是分类问题。 ## 线性单元的模型 当我们说模型时，我们实际上在谈论根据输入<span class="math inline">\(x\)</span>预测输出<span class="math inline">\(y\)</span>的算法。比如，<span class="math inline">\(x\)</span>可以是一个人的工作年限，<span class="math inline">\(y\)</span>可以是他的月薪，我们可以用某种算法来根据一个人的工作年限来预测他的收入。比如： <span class="math display">\[y=h(x)=w*x+b\]</span> 函数<span class="math inline">\(h(x)\)</span>叫做假设，而<span class="math inline">\(w\)</span>、<span class="math inline">\(b\)</span>是它的参数。我们假设参数<span class="math inline">\(w=1000\)</span>，参数<span class="math inline">\(b=500\)</span>，如果一个人的工作年限是5年的话，我们的模型会预测他的月薪为 <span class="math display">\[y=h(x)=1000*5+500=5500(元)\]</span> 你也许会说，这个模型太不靠谱了。是这样的，因为我们考虑的因素太少了，仅仅包含了工作年限。如果考虑更多的因素，比如所处的行业、公司、职级等等，可能预测就会靠谱的多。我们把工作年限、行业、公司、职级这些信息，称之为特征。对于一个工作了5年，在IT行业，百度工作，职级T6这样的人，我们可以用这样的一个特征向量来表示他 <span class="math display">\[x = (5, IT, 百度, T6)\]</span> 既然输入<span class="math inline">\(x\)</span>变成了一个具备四个特征的向量，相对应的，仅仅一个参数<span class="math inline">\(w\)</span>就不够用了，我们应该使用4个参数<span class="math inline">\(w_1\)</span>,<span class="math inline">\(w_2\)</span>,<span class="math inline">\(w_3\)</span>,<span class="math inline">\(w_4\)</span>，每个特征对应一个。这样，我们的模型就变成 <span class="math display">\[y=h(x)=w_1*x_1+w_2*x_2+w_3*x_3+w_4*x_4+b\]</span> 其中，<span class="math inline">\(x_1\)</span>对应工作年限，<span class="math inline">\(x_2\)</span>对应行业，<span class="math inline">\(x_3\)</span>对应公司，<span class="math inline">\(x_4\)</span>对应职级。 为了书写和计算方便，我们可以令<span class="math inline">\(w_0\)</span>等于<span class="math inline">\(b\)</span>，同时令<span class="math inline">\(w_0\)</span>对应于特征<span class="math inline">\(x_0\)</span>。由于<span class="math inline">\(x_0\)</span>其实并不存在，我们可以令它的值永远为1。也就是说 <span class="math display">\[b=w_0*x_0\qquad 其中x_0=1\]</span> 这样上面的式子就可以写成 <span class="math display">\[\begin{align}
 y=h(x)&amp;=w_1*x_1+w_2*x_2+w_3*x_3+w_4*x_4+b\\
 &amp;=w_0*x_0+w_1*x_1+w_2*x_2+w_3*x_3+w_4*x_4
-\end{align}\]</span> 我们还可以把上式写成向量的形式 <span class="math display">\[y=h(x)=\mathrm{w}^T\mathrm{x}\qquad\qquad(式1)\]</span> 长成这种样子模型就叫做线性模型，因为输出<span class="math inline">\(y\)</span>就是输入特征<span class="math inline">\(x_1\)</span>,<span class="math inline">\(x_2\)</span>,<span class="math inline">\(x_3\)</span>,…的线性组合。 ## 3. 监督学习和无监督学习 接下来，我们需要关心的是这个模型如何训练，也就是参数<span class="math inline">\(w\)</span>取什么值最合适。</p>
+\end{align}\]</span> 我们还可以把上式写成向量的形式 <span class="math display">\[y=h(x)=\mathrm{w}^T\mathrm{x}\qquad\qquad(式1)\]</span> 长成这种样子模型就叫做线性模型，因为输出<span class="math inline">\(y\)</span>就是输入特征<span class="math inline">\(x_1\)</span>,<span class="math inline">\(x_2\)</span>,<span class="math inline">\(x_3\)</span>,…的线性组合。 ## 监督学习和无监督学习 接下来，我们需要关心的是这个模型如何训练，也就是参数<span class="math inline">\(w\)</span>取什么值最合适。</p>
 <p>机器学习有一类学习方法叫做监督学习，它是说为了训练一个模型，我们要提供这样一堆训练样本：每个训练样本既包括输入特征<span class="math inline">\(x\)</span>，也包括对应的输出<span class="math inline">\(y\)</span>(<span class="math inline">\(y\)</span>也叫做标记，label)。也就是说，我们要找到很多人，我们既知道他们的特征(工作年限，行业…)，也知道他们的收入。我们用这样的样本去训练模型，让模型既看到我们提出的每个问题(输入特征<span class="math inline">\(x\)</span>)，也看到对应问题的答案(标记<span class="math inline">\(y\)</span>)。当模型看到足够多的样本之后，它就能总结出其中的一些规律。然后，就可以预测那些它没看过的输入所对应的答案了。</p>
 <p>另外一类学习方法叫做无监督学习，这种方法的训练样本中只有<span class="math inline">\(x\)</span>而没有<span class="math inline">\(y\)</span>。模型可以总结出特征<span class="math inline">\(x\)</span>的一些规律，但是无法知道其对应的答案<span class="math inline">\(y\)</span>。</p>
-<p>很多时候，既有<span class="math inline">\(x\)</span>又有<span class="math inline">\(y\)</span>的训练样本是很少的，大部分样本都只有<span class="math inline">\(x\)</span>。比如在语音到文本(STT)的识别任务中，<span class="math inline">\(x\)</span>是语音，<span class="math inline">\(y\)</span>是这段语音对应的文本。我们很容易获取大量的语音录音，然而把语音一段一段切分好并标注上对应文字则是非常费力气的事情。这种情况下，为了弥补带标注样本的不足，我们可以用无监督学习方法先做一些聚类，让模型总结出哪些音节是相似的，然后再用少量的带标注的训练样本，告诉模型其中一些音节对应的文字。这样模型就可以把相似的音节都对应到相应文字上，完成模型的训练。 ## 4. 线性单元的目标函数 现在，让我们只考虑监督学习。</p>
+<p>很多时候，既有<span class="math inline">\(x\)</span>又有<span class="math inline">\(y\)</span>的训练样本是很少的，大部分样本都只有<span class="math inline">\(x\)</span>。比如在语音到文本(STT)的识别任务中，<span class="math inline">\(x\)</span>是语音，<span class="math inline">\(y\)</span>是这段语音对应的文本。我们很容易获取大量的语音录音，然而把语音一段一段切分好并标注上对应文字则是非常费力气的事情。这种情况下，为了弥补带标注样本的不足，我们可以用无监督学习方法先做一些聚类，让模型总结出哪些音节是相似的，然后再用少量的带标注的训练样本，告诉模型其中一些音节对应的文字。这样模型就可以把相似的音节都对应到相应文字上，完成模型的训练。 ## 线性单元的目标函数 现在，让我们只考虑监督学习。</p>
 <p>在监督学习下，对于一个样本，我们知道它的特征<span class="math inline">\(x\)</span>，以及标记<span class="math inline">\(y\)</span>。同时，我们还可以根据模型<span class="math inline">\(h(x)\)</span>计算得到输出<span class="math inline">\(\bar{y}\)</span>。注意这里面我们用<span class="math inline">\(y\)</span>表示训练样本里面的标记，也就是实际值；用带上划线<span class="math inline">\(\bar{y}\)</span>的表示模型计算的出来的预测值。我们当然希望模型计算出来的<span class="math inline">\(\bar{y}\)</span>和<span class="math inline">\(y\)</span>越接近越好。</p>
 <p>数学上有很多方法来表示的<span class="math inline">\(\bar{y}\)</span>和<span class="math inline">\(y\)</span>的接近程度，比如我们可以用<span class="math inline">\(\bar{y}\)</span>和<span class="math inline">\(y\)</span>的差的平方的<span class="math inline">\(\frac{1}{2}\)</span>来表示它们的接近程度</p>
 <p><span class="math display">\[e=\frac{1}{2}(y-\bar{y})^2\]</span></p>
@@ -438,7 +438,7 @@ E(\mathrm{w})&amp;=\frac{1}{2}\sum_{i=1}^{n}(y^{(i)}-\bar{y}^{(i)})^2\\
 &amp;=\frac{1}{2}\sum_{i=1}^{n}(\mathrm{y^{(i)}-\mathrm{w}^Tx^{(i)}})^2
 \end{align}\]</span></p>
 <p>由此可见，模型的训练，实际上就是求取到合适的<span class="math inline">\(w\)</span>，使(式2)取得最小值。这在数学上称作优化问题，而<span class="math inline">\(E(w)\)</span>就是我们优化的目标，称之为目标函数。</p>
-<h2 id="梯度下降优化算法">5. 梯度下降优化算法</h2>
+<h2 id="梯度下降优化算法">梯度下降优化算法</h2>
 <p>大学时我们学过怎样求函数的极值。函数<span class="math inline">\(y=f(x)\)</span>的极值点，就是它的导数<span class="math inline">\(f&#39;(x)=0\)</span>的那个点。因此我们可以通过解方程<span class="math inline">\(f&#39;(x)=0\)</span>，求得函数的极值点<span class="math inline">\((x_0,y_0)\)</span>。</p>
 <p>不过对于计算机来说，它可不会解方程。但是它可以凭借强大的计算能力，一步一步的去把函数的极值点『试』出来。如下图所示：</p>
 <p><img src="http://p082waf5e.bkt.clouddn.com/15135647570252.jpg"> 首先，我们随便选择一个点开始，比如上图的<span class="math inline">\(x_0\)</span>点。接下来，每次迭代修改<span class="math inline">\(x\)</span>的为<span class="math inline">\(x_1\)</span>,<span class="math inline">\(x_2\)</span>,<span class="math inline">\(x_3\)</span>,…，经过数次迭代后最终达到函数最小值点。</p>
@@ -484,7 +484,7 @@ x_2^{(i)} \\
 x_m^{(i)} \\
 \end{bmatrix}\]</span></p>
 <p>如果您还是没看明白，建议您也吐血再看一下大学时学过的《线性代数》吧。</p>
-<h2 id="nablaemathrmw的推导">6. <span class="math inline">\(\nabla{E}(\mathrm{w})\)</span>的推导</h2>
+<h2 id="nablaemathrmw的推导"><span class="math inline">\(\nabla{E}(\mathrm{w})\)</span>的推导</h2>
 <p>这一节你尽可以跳过它，并不太会影响到全文的理解。当然如果你非要弄明白每个细节，那恭喜你骚年，机器学习的未来一定是属于你的。</p>
 <p>首先，我们先做一个简单的前戏。我们知道函数的梯度的定义就是它相对于各个变量的偏导数，所以我们写下下面的式子 <span class="math display">\[\begin{align}
 \nabla{E(\mathrm{w})}&amp;=\frac{\partial}{\partial\mathrm{w}}E(\mathrm{w})\\
@@ -517,10 +517,10 @@ x_m^{(i)} \\
 &amp;=-\sum_{i=1}^{n}(y^{(i)}-\bar{y}^{(i)})\mathrm{x}
 \end{align}\]</span></p>
 <p>至此，大功告成。</p>
-<h2 id="随机梯度下降算法stochastic-gradient-descent-sgd">7. 随机梯度下降算法(Stochastic Gradient Descent, SGD)</h2>
+<h2 id="随机梯度下降算法stochastic-gradient-descent-sgd">随机梯度下降算法(Stochastic Gradient Descent, SGD)</h2>
 <p>如果我们根据(式3)来训练模型，那么我们每次更新<span class="math inline">\(\mathrm{w}\)</span>的迭代，要遍历训练数据中所有的样本进行计算，我们称这种算法叫做批梯度下降(Batch Gradient Descent)。如果我们的样本非常大，比如数百万到数亿，那么计算量异常巨大。因此，实用的算法是SGD算法。在SGD算法中，每次更新<span class="math inline">\(\mathrm{w}\)</span>的迭代，只计算一个样本。这样对于一个具有数百万样本的训练数据，完成一次遍历就会对<span class="math inline">\(\mathrm{w}\)</span>更新数百万次，效率大大提升。由于样本的噪音和随机性，每次更新<span class="math inline">\(\mathrm{w}\)</span>并不一定按照减少<span class="math inline">\(E\)</span>的方向。然而，虽然存在一定随机性，大量的更新总体上沿着<span class="math inline">\(E\)</span>减少的方向前进的，因此最后也能收敛到最小值附近。下图展示了SGD和BGD的区别 <img src="http://p082waf5e.bkt.clouddn.com/15135682427407.jpg"> 如上图，椭圆表示的是函数值的等高线，椭圆中心是函数的最小值点。红色是BGD的逼近曲线，而紫色是SGD的逼近曲线。我们可以看到BGD是一直向着最低点前进的，而SGD明显躁动了许多，但总体上仍然是向最低点逼近的。</p>
 <p>最后需要说明的是，SGD不仅仅效率高，而且随机性有时候反而是好事。今天的目标函数是一个『凸函数』，沿着梯度反方向就能找到全局唯一的最小值。然而对于非凸函数来说，存在许多局部最小值。随机性有助于我们逃离某些很糟糕的局部最小值，从而获得一个更好的模型。</p>
-<h2 id="实现线性单元">8. 实现线性单元</h2>
+<h2 id="实现线性单元">实现线性单元</h2>
 <blockquote>
 <p>完整代码请参考GitHub: <a href="https://github.com/hanbt/learn_dl/blob/master/linear_unit.py" target="_blank" rel="noopener">GitHub-linear_unit</a> (python2.7)</p>
 </blockquote>
@@ -559,7 +559,7 @@ x_m^{(i)} \\
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_training_dataset</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    捏造5个人的收入数据</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="comment"># 构建训练数据</span></span><br><span class="line">    <span class="comment"># 输入向量列表，每一项是工作年限</span></span><br><span class="line">    input_vecs = [[<span class="number">5</span>], [<span class="number">3</span>], [<span class="number">8</span>], [<span class="number">1.4</span>], [<span class="number">10.1</span>]]</span><br><span class="line">    <span class="comment"># 期望的输出列表，月薪，注意要与输入一一对应</span></span><br><span class="line">    labels = [<span class="number">5500</span>, <span class="number">2300</span>, <span class="number">7600</span>, <span class="number">1800</span>, <span class="number">11400</span>]</span><br><span class="line">    <span class="keyword">return</span> input_vecs, labels    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train_linear_unit</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    使用数据训练线性单元</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="comment"># 创建感知器，输入参数的特征数为1（工作年限）</span></span><br><span class="line">    lu = LinearUnit(<span class="number">1</span>)</span><br><span class="line">    <span class="comment"># 训练，迭代10轮, 学习速率为0.01</span></span><br><span class="line">    input_vecs, labels = get_training_dataset()</span><br><span class="line">    lu.train(input_vecs, labels, <span class="number">10</span>, <span class="number">0.01</span>)</span><br><span class="line">    <span class="comment">#返回训练好的线性单元</span></span><br><span class="line">    <span class="keyword">return</span> lu</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>: </span><br><span class="line">    <span class="string">'''训练线性单元'''</span></span><br><span class="line">    linear_unit = train_linear_unit()</span><br><span class="line">    <span class="comment"># 打印训练获得的权重</span></span><br><span class="line">    <span class="keyword">print</span> linear_unit</span><br><span class="line">    <span class="comment"># 测试</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'Work 3.4 years, monthly salary = %.2f'</span> % linear_unit.predict([<span class="number">3.4</span>])</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'Work 15 years, monthly salary = %.2f'</span> % linear_unit.predict([<span class="number">15</span>])</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'Work 1.5 years, monthly salary = %.2f'</span> % linear_unit.predict([<span class="number">1.5</span>])</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'Work 6.3 years, monthly salary = %.2f'</span> % linear_unit.predict([<span class="number">6.3</span>])</span><br></pre></td></tr></table></figure>
 <p>程序运行结果如下图 <img src="http://p082waf5e.bkt.clouddn.com/15135753958718.jpg"></p>
 <p>拟合的直线如下图 <img src="http://p082waf5e.bkt.clouddn.com/15135754098432.jpg"></p>
-<h2 id="小结">9. 小结</h2>
+<h2 id="小结">小结</h2>
 <p>事实上，一个机器学习算法其实只有两部分</p>
 <ul>
 <li>模型 从输入特征<span class="math inline">\(\mathrm{x}\)</span>预测输入<span class="math inline">\(y\)</span>的那个函数<span class="math inline">\(h(x)\)</span></li>
@@ -569,7 +569,13 @@ x_m^{(i)} \\
 <p>接下来，你会用优化算法去求取目标函数的最小(最大)值。[随机]梯度{下降|上升}算法就是一个优化算法。针对同一个目标函数，不同的优化算法会推导出不同的训练规则。我们后面还会讲其它的优化算法。</p>
 <p>其实在机器学习中，算法往往并不是关键，真正的关键之处在于选取特征。选取特征需要我们人类对问题的深刻理解，经验、以及思考。而神经网络算法的一个优势，就在于它能够自动学习到应该提取什么特征，从而使算法不再那么依赖人类，而这也是神经网络之所以吸引人的一个方面。</p>
 <p>现在，经过漫长的烧脑，你已经具备了学习神经网络的必备知识。</p>
-<h2 id="后记">10. 后记</h2>
+<h2 id="参考资料">参考资料</h2>
+<ol type="1">
+<li>Tom M. Mitchell, “机器学习”, 曾华军等译, 机械工业出版社</li>
+</ol>
+<hr>
+<p>[转载于<a href="https://www.zybuluo.com/hanbingtao/note/448086" target="_blank" rel="noopener">零基础入门深度学习(2) - 线性单元和梯度下降</a>]</p>
+<h2 id="后记">后记</h2>
 <ul>
 <li>线性单元也是一种感知器。</li>
 <li>线性单元揭示了用神经网络如何来做<strong>回归预测</strong>。</li>
@@ -750,7 +756,7 @@ x_m^{(i)} \\
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -772,7 +778,7 @@ x_m^{(i)} \\
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -840,7 +846,7 @@ x_m^{(i)} \\
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#线性单元和梯度下降"><span class="nav-number">1.</span> <span class="nav-text">&#x7EBF;&#x6027;&#x5355;&#x5143;&#x548C;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#往期回顾"><span class="nav-number">1.1.</span> <span class="nav-text">0. &#x5F80;&#x671F;&#x56DE;&#x987E;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性单元是啥"><span class="nav-number">1.2.</span> <span class="nav-text">1. &#x7EBF;&#x6027;&#x5355;&#x5143;&#x662F;&#x5565;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度下降优化算法"><span class="nav-number">1.3.</span> <span class="nav-text">5. &#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x4F18;&#x5316;&#x7B97;&#x6CD5;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nablaemathrmw的推导"><span class="nav-number">1.4.</span> <span class="nav-text">6. <span class="math inline">\(\nabla{E}(\mathrm{w})\)</span>&#x7684;&#x63A8;&#x5BFC;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机梯度下降算法stochastic-gradient-descent-sgd"><span class="nav-number">1.5.</span> <span class="nav-text">7. &#x968F;&#x673A;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x7B97;&#x6CD5;(Stochastic Gradient Descent, SGD)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现线性单元"><span class="nav-number">1.6.</span> <span class="nav-text">8. &#x5B9E;&#x73B0;&#x7EBF;&#x6027;&#x5355;&#x5143;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">1.7.</span> <span class="nav-text">9. &#x5C0F;&#x7ED3;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后记"><span class="nav-number">1.8.</span> <span class="nav-text">10. &#x540E;&#x8BB0;</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#线性单元和梯度下降"><span class="nav-number">1.</span> <span class="nav-text">&#x7EBF;&#x6027;&#x5355;&#x5143;&#x548C;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#往期回顾"><span class="nav-number">1.1.</span> <span class="nav-text">&#x5F80;&#x671F;&#x56DE;&#x987E;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性单元是啥"><span class="nav-number">1.2.</span> <span class="nav-text">&#x7EBF;&#x6027;&#x5355;&#x5143;&#x662F;&#x5565;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度下降优化算法"><span class="nav-number">1.3.</span> <span class="nav-text">&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x4F18;&#x5316;&#x7B97;&#x6CD5;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nablaemathrmw的推导"><span class="nav-number">1.4.</span> <span class="nav-text"><span class="math inline">\(\nabla{E}(\mathrm{w})\)</span>&#x7684;&#x63A8;&#x5BFC;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机梯度下降算法stochastic-gradient-descent-sgd"><span class="nav-number">1.5.</span> <span class="nav-text">&#x968F;&#x673A;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x7B97;&#x6CD5;(Stochastic Gradient Descent, SGD)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现线性单元"><span class="nav-number">1.6.</span> <span class="nav-text">&#x5B9E;&#x73B0;&#x7EBF;&#x6027;&#x5355;&#x5143;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">1.7.</span> <span class="nav-text">&#x5C0F;&#x7ED3;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">1.8.</span> <span class="nav-text">&#x53C2;&#x8003;&#x8D44;&#x6599;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后记"><span class="nav-number">1.9.</span> <span class="nav-text">&#x540E;&#x8BB0;</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -860,7 +866,7 @@ x_m^{(i)} \\
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -874,7 +880,7 @@ x_m^{(i)} \\
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">19.5k</span>
+    <span title="Site words total count">31.9k</span>
   
 </div>
 

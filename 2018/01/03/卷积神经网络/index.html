@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="DeepLearning,CNN," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="NLPer" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="卷积神经网络 往期回顾 在前面的文章中，我们介绍了全连接神经网络，以及它的训练和使用。我们用它来识别了手写数字，然而，这种结构的网络对于图像识别任务来说并不是很合适。本文将要介绍一种更适合图像、语音识别任务的神经网络结构——卷积神经网络(Convolutional Neural Network, CNN)。说卷积神经网络是最重要的一种神经网络也不为过，它在最近几年大放异彩，几乎所有图像、语音识别领">
+<meta name="keywords" content="DeepLearning,CNN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习系列（4）">
+<meta property="og:url" content="http://otter668@github.io/2018/01/03/卷积神经网络/index.html">
+<meta property="og:site_name" content="NLPer">
+<meta property="og:description" content="卷积神经网络 往期回顾 在前面的文章中，我们介绍了全连接神经网络，以及它的训练和使用。我们用它来识别了手写数字，然而，这种结构的网络对于图像识别任务来说并不是很合适。本文将要介绍一种更适合图像、语音识别任务的神经网络结构——卷积神经网络(Convolutional Neural Network, CNN)。说卷积神经网络是最重要的一种神经网络也不为过，它在最近几年大放异彩，几乎所有图像、语音识别领">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15149466687104.jpg">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15149468025307.jpg">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15149469740696.jpg">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15149489224352.jpg">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15149491889890.jpg">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15149492350917.jpg">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2256672-19110dee0c54c0b2.gif">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15149494170389.jpg">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15149494214468.jpg">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15149494286336.jpg">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15149494336226.jpg">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2256672-958f31b01695b085.gif">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15149501232624.jpg">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15149502879011.jpg">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15149657809363.jpg">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15149706958920.jpg">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15149711226279.jpg">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15149714358686.jpg">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15149723977301.jpg">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15149812082441.jpg">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15149814951003.jpg">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15150327145285.jpg">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15150327570445.jpg">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15150340058442.jpg">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15150473476635.jpg">
+<meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15150474975624.jpg">
+<meta property="og:updated_time" content="2018-01-04T06:52:44.760Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深度学习系列（4）">
+<meta name="twitter:description" content="卷积神经网络 往期回顾 在前面的文章中，我们介绍了全连接神经网络，以及它的训练和使用。我们用它来识别了手写数字，然而，这种结构的网络对于图像识别任务来说并不是很合适。本文将要介绍一种更适合图像、语音识别任务的神经网络结构——卷积神经网络(Convolutional Neural Network, CNN)。说卷积神经网络是最重要的一种神经网络也不为过，它在最近几年大放异彩，几乎所有图像、语音识别领">
+<meta name="twitter:image" content="http://p082waf5e.bkt.clouddn.com/15149466687104.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://otter668@github.io/2018/01/03/卷积神经网络/"/>
+
+
+
+
+
+  <title>深度学习系列（4） | NLPer</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NLPer</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">coding</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://otter668@github.io/2018/01/03/卷积神经网络/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gaochao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/2328224?s=400&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NLPer">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">深度学习系列（4）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-03T10:27:10+08:00">
+                2018-01-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/科研/" itemprop="url" rel="index">
+                    <span itemprop="name">科研</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  12,110
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  54
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="卷积神经网络">卷积神经网络</h1>
+<h2 id="往期回顾">往期回顾</h2>
+<p>在前面的文章中，我们介绍了全连接神经网络，以及它的训练和使用。我们用它来识别了手写数字，然而，这种结构的网络对于图像识别任务来说并不是很合适。本文将要介绍一种更适合图像、语音识别任务的神经网络结构——卷积神经网络(Convolutional Neural Network, CNN)。说卷积神经网络是最重要的一种神经网络也不为过，它在最近几年大放异彩，几乎所有图像、语音识别领域的重要突破都是卷积神经网络取得的，比如谷歌的GoogleNet、微软的ResNet等，打败李世石的AlphaGo也用到了这种网络。本文将详细介绍卷积神经网络以及它的训练算法，以及动手实现一个简单的卷积神经网络。</p>
+<a id="more"></a>
+<h2 id="一个新的激活函数relu">一个新的激活函数——Relu</h2>
+<p>最近几年卷积神经网络中，激活函数往往不选择sigmoid或tanh函数，而是选择relu函数。Relu函数的定义是：</p>
+<p><span class="math display">\[f(x)= max(0,x)\]</span></p>
+<p>Relu函数图像如下图所示：</p>
+<figure>
+<img src="http://p082waf5e.bkt.clouddn.com/15149466687104.jpg" alt="Relu"><figcaption>Relu</figcaption>
+</figure>
+<p>Relu函数作为激活函数，有下面几大优势：</p>
+<ul>
+<li><strong>速度快</strong> 和sigmoid函数需要计算指数和倒数相比，relu函数其实就是一个<span class="math inline">\(max(0,x)\)</span>，计算代价小很多。</li>
+<li><strong>减轻梯度消失问题</strong> 回忆一下计算梯度的公式<span class="math inline">\(\nabla=\sigma&#39;\delta x\)</span>。其中，<span class="math inline">\(\sigma&#39;\)</span>是sigmoid函数的导数。在使用反向传播算法进行梯度计算时，每经过一层sigmoid神经元，梯度就要乘上一个<span class="math inline">\(\sigma&#39;\)</span>。从下图可以看出，<span class="math inline">\(\sigma&#39;\)</span>函数最大值是1/4。因此，乘一个<span class="math inline">\(\sigma&#39;\)</span>会导致梯度越来越小，这对于深层网络的训练是个很大的问题。而relu函数的导数是1，不会导致梯度变小。当然，激活函数仅仅是导致梯度减小的一个因素，但无论如何在这方面relu的表现强于sigmoid。使用relu激活函数可以让你训练更深的网络。</li>
+</ul>
+<p><img src="http://p082waf5e.bkt.clouddn.com/15149468025307.jpg"></p>
+<ul>
+<li><strong>稀疏性</strong> 通过对大脑的研究发现，大脑在工作的时候只有大约5%的神经元是激活的，而采用sigmoid激活函数的人工神经网络，其激活率大约是50%。有论文声称人工神经网络在15%-30%的激活率时是比较理想的。因为relu函数在输入小于0时是完全不激活的，因此可以获得一个更低的激活率。</li>
+</ul>
+<h2 id="全连接网络-vs-卷积网络">全连接网络 VS 卷积网络</h2>
+<p>全连接神经网络之所以不太适合图像识别任务，主要有以下几个方面的问题：</p>
+<ul>
+<li><strong>参数数量太多</strong> 考虑一个输入1000*1000像素的图片(一百万像素，现在已经不能算大图了)，输入层有1000*1000=100万节点。假设第一个隐藏层有100个节点(这个数量并不多)，那么仅这一层就有(1000*1000+1)*100=1亿参数，这实在是太多了！我们看到图像只扩大一点，参数数量就会多很多，因此它的扩展性很差。</li>
+<li><strong>没有利用像素之间的位置信息</strong> 对于图像识别任务来说，每个像素和其周围像素的联系是比较紧密的，和离得很远的像素的联系可能就很小了。如果一个神经元和上一层所有神经元相连，那么就相当于对于一个像素来说，把图像的所有像素都等同看待，这不符合前面的假设。当我们完成每个连接权重的学习之后，最终可能会发现，有大量的权重，它们的值都是很小的(也就是这些连接其实无关紧要)。努力学习大量并不重要的权重，这样的学习必将是非常低效的。</li>
+<li><strong>网络层数限制</strong> 我们知道网络层数越多其表达能力越强，但是通过梯度下降方法训练深度全连接神经网络很困难，因为全连接神经网络的梯度很难传递超过3层。因此，我们不可能得到一个很深的全连接神经网络，也就限制了它的能力。</li>
+</ul>
+<p>那么，卷积神经网络又是怎样解决这个问题的呢？主要有三个思路：</p>
+<ul>
+<li><strong>局部连接</strong> 这个是最容易想到的，每个神经元不再和上一层的所有神经元相连，而只和一小部分神经元相连。这样就减少了很多参数。</li>
+<li><strong>权值共享</strong> 一组连接可以共享同一个权重，而不是每个连接有一个不同的权重，这样又减少了很多参数。</li>
+<li><strong>下采样</strong> 可以使用Pooling来减少每层的样本数，进一步减少参数数量，同时还可以提升模型的鲁棒性。 对于图像识别任务来说，卷积神经网络通过尽可能保留重要的参数，去掉大量不重要的参数，来达到更好的学习效果。</li>
+</ul>
+<p>接下来，我们将详述卷积神经网络到底是何方神圣。</p>
+<h2 id="卷积神经网络是啥">卷积神经网络是啥</h2>
+<p>首先，我们先获取一个感性认识，下图是一个卷积神经网络的示意图：</p>
+<figure>
+<img src="http://p082waf5e.bkt.clouddn.com/15149469740696.jpg" alt="图1"><figcaption>图1</figcaption>
+</figure>
+<h3 id="网络架构">网络架构</h3>
+<p>如图1所示，一个卷积神经网络由若干卷积层、Pooling层、全连接层组成。你可以构建各种不同的卷积神经网络，它的常用架构模式为： <code>INPUT -&gt; [[CONV]*N -&gt; POOL?]*M -&gt; [FC]*K</code> 也就是N个卷积层叠加，然后(可选)叠加一个Pooling层，重复这个结构M次，最后叠加K个全连接层。 对于图1展示的卷积神经网络： <code>INPUT -&gt; CONV -&gt; POOL -&gt; CONV -&gt; POOL -&gt; FC -&gt; FC</code> 按照上述模式可以表示为： <code>INPUT -&gt; [[CONV]*1 -&gt; POOL]*2 -&gt; [FC]*2</code> 也就是：<code>N=1, M=2, K=2</code>。</p>
+<h3 id="三维的层结构">三维的层结构</h3>
+<p>从图1我们可以发现卷积神经网络的层结构和全连接神经网络的层结构有很大不同。全连接神经网络每层的神经元是按照一维排列的，也就是排成一条线的样子；而卷积神经网络每层的神经元是按照三维排列的，也就是排成一个长方体的样子，有宽度、高度和深度。</p>
+<p>对于图1展示的神经网络，我们看到输入层的宽度和高度对应于输入图像的宽度和高度，而它的深度为1。接着，第一个卷积层对这幅图像进行了卷积操作(后面我们会讲如何计算卷积)，得到了三个Feature Map。这里的“3”可能是让很多初学者迷惑的地方，实际上，就是这个卷积层包含三个Filter，也就是三套参数，每个Filter都可以把原始输入图像卷积得到一个Feature Map，三个Filter就可以得到三个Feature Map。至于一个卷积层可以有多少个Filter，那是可以自由设定的。也就是说，卷积层的Filter个数也是一个超参数。我们可以把Feature Map可以看做是通过卷积变换提取到的图像特征，三个Filter就对原始图像提取出三组不同的特征，也就是得到了三个Feature Map，也称做三个通道(channel)。</p>
+<p>继续观察图1，在第一个卷积层之后，Pooling层对三个Feature Map做了下采样(后面我们会讲如何计算下采样)，得到了三个更小的Feature Map。接着，是第二个卷积层，它有5个Filter。每个Fitler都把前面下采样之后的3个Feature Map卷积在一起，得到一个新的Feature Map。这样，5个Filter就得到了5个Feature Map。接着，是第二个Pooling，继续对5个Feature Map进行下采样，得到了5个更小的Feature Map。</p>
+<p>图1所示网络的最后两层是全连接层。第一个全连接层的每个神经元，和上一层5个Feature Map中的每个神经元相连，第二个全连接层(也就是输出层)的每个神经元，则和第一个全连接层的每个神经元相连，这样得到了整个网络的输出。</p>
+<p>至此，我们对卷积神经网络有了最基本的感性认识。接下来，我们将介绍卷积神经网络中各种层的计算和训练。</p>
+<h2 id="卷积神经网络输出值的计算">卷积神经网络输出值的计算</h2>
+<h3 id="卷积层输出值的计算">卷积层输出值的计算</h3>
+<p>我们用一个简单的例子来讲述如何计算卷积，然后，我们抽象出卷积层的一些重要概念和计算方法。</p>
+<p>假设有一个5*5的图像，使用一个3*3的filter进行卷积，想得到一个3*3的Feature Map，如下所示：</p>
+<p><img src="http://p082waf5e.bkt.clouddn.com/15149489224352.jpg"></p>
+<p>为了清楚的描述卷积计算过程，我们首先对图像的每个像素进行编号，用<span class="math inline">\(x_{i,j}\)</span>表示图像的第<span class="math inline">\(i\)</span>行第<span class="math inline">\(j\)</span>列元素；对filter的每个权重进行编号，用<span class="math inline">\(w_{m,n}\)</span>表示第<span class="math inline">\(m\)</span>行第<span class="math inline">\(n\)</span>列权重，用<span class="math inline">\(w_b\)</span>表示filter的偏置项；对Feature Map的每个元素进行编号，用<span class="math inline">\(a_{i,j}\)</span>表示Feature Map的第<span class="math inline">\(i\)</span>行第<span class="math inline">\(j\)</span>列元素；用<span class="math inline">\(f\)</span>表示激活函数(这个例子选择relu函数作为激活函数)。然后，使用下列公式计算卷积：</p>
+<p><span class="math display">\[a_{i,j}=f(\sum_{m=0}^{2}\sum_{n=0}^{2}w_{m,n}x_{i+m,j+n}+w_b)\qquad(式1)\]</span></p>
+<p>例如，对于Feature Map左上角元素<span class="math inline">\(a_{0,0}\)</span>来说，其卷积计算方法为：</p>
+<p><span class="math display">\[\begin{align}
+a_{0,0}&amp;=f(\sum_{m=0}^{2}\sum_{n=0}^{2}w_{m,n}x_{m+0,n+0}+w_b)\\
+&amp;=relu(w_{0,0}x_{0,0}+w_{0,1}x_{0,1}+w_{0,2}x_{0,2}+w_{1,0}x_{1,0}+w_{1,1}x_{1,1}+w_{1,2}x_{1,2}+w_{2,0}x_{2,0}+w_{2,1}x_{2,1}+w_{2,2}x_{2,2}+w_b)\\
+&amp;=relu(1+0+1+0+1+0+0+0+1+0)\\
+&amp;=relu(4)\\
+&amp;=4
+\end{align}\]</span></p>
+<p>计算结果如下图所示：</p>
+<p><img src="http://p082waf5e.bkt.clouddn.com/15149491889890.jpg"></p>
+<p>接下来，Feature Map的元素<span class="math inline">\(a_{0,1}\)</span>的卷积计算方法为：</p>
+<p><span class="math display">\[\begin{align}
+a_{0,1}&amp;=f(\sum_{m=0}^{2}\sum_{n=0}^{2}w_{m,n}x_{m+0,n+1}+w_b)\\
+&amp;=relu(w_{0,0}x_{0,1}+w_{0,1}x_{0,2}+w_{0,2}x_{0,3}+w_{1,0}x_{1,1}+w_{1,1}x_{1,2}+w_{1,2}x_{1,3}+w_{2,0}x_{2,1}+w_{2,1}x_{2,3}+w_{2,2}x_{2,3}+w_b)\\
+&amp;=relu(1+0+0+0+1+0+0+0+1+0)\\
+&amp;=relu(3)\\
+&amp;=3
+\end{align}\]</span></p>
+<p>计算结果如下图所示：</p>
+<p><img src="http://p082waf5e.bkt.clouddn.com/15149492350917.jpg"></p>
+<p>可以依次计算出Feature Map中所有元素的值。下面的动画显示了整个Feature Map的计算过程：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2256672-19110dee0c54c0b2.gif"></p>
+<p>上面的计算过程中，步幅(stride)为1。步幅可以设为大于1的数。例如，当步幅为2时，Feature Map计算如下：</p>
+<p><img src="http://p082waf5e.bkt.clouddn.com/15149494170389.jpg"> <img src="http://p082waf5e.bkt.clouddn.com/15149494214468.jpg"> <img src="http://p082waf5e.bkt.clouddn.com/15149494286336.jpg"> <img src="http://p082waf5e.bkt.clouddn.com/15149494336226.jpg"></p>
+<p>我们注意到，当步幅设置为2的时候，Feature Map就变成2*2了。这说明图像大小、步幅和卷积后的Feature Map大小是有关系的。事实上，它们满足下面的关系：</p>
+<p><span class="math display">\[\begin{align}
+W_2 &amp;= (W_1 - F + 2P)/S + 1\qquad(式2)\\
+H_2 &amp;= (H_1 - F + 2P)/S + 1\qquad(式3)
+\end{align}\]</span></p>
+<p>在上面两个公式中，<span class="math inline">\(W_2\)</span>是卷积后Feature Map的宽度；<span class="math inline">\(W_1\)</span>是卷积前图像的宽度；<span class="math inline">\(F\)</span>是filter的宽度；<span class="math inline">\(P\)</span>是Zero Padding数量，Zero Padding是指在原始图像周围补几圈0，如果<span class="math inline">\(P\)</span>的值是1，那么就补1圈0；<span class="math inline">\(S\)</span>是步幅；<span class="math inline">\(H_2\)</span>是卷积后Feature Map的高度；<span class="math inline">\(H_1\)</span>是卷积前图像的宽度。式2和式3本质上是一样的。</p>
+<p>以前面的例子来说，图像宽度<span class="math inline">\(W_1=5\)</span>，filter宽度<span class="math inline">\(F=3\)</span>，Zero Padding<span class="math inline">\(P=0\)</span>，步幅<span class="math inline">\(S=2\)</span>，则</p>
+<p><span class="math display">\[\begin{align}
+W_2 &amp;= (W_1 - F + 2P)/S + 1\\
+&amp;= (5 - 3 + 0)/2 + 1\\
+&amp;=2
+\end{align}\]</span></p>
+<p>说明Feature Map宽度是2。同样，我们也可以计算出Feature Map高度也是2。</p>
+<p>前面我们已经讲了深度为1的卷积层的计算方法，如果深度大于1怎么计算呢？其实也是类似的。如果卷积前的图像深度为D，那么相应的filter的深度也必须为D。我们扩展一下式1，得到了深度大于1的卷积计算公式：</p>
+<p><span class="math display">\[a_{d,i,j}=f(\sum_{d=0}^{D-1}\sum_{m=0}^{F-1}\sum_{n=0}^{F-1}w_{d,m,n}x_{d,i+m,j+n}+w_b)\qquad(式4)\]</span></p>
+<p>在式4中，<span class="math inline">\(D\)</span>是深度；<span class="math inline">\(F\)</span>是filter的大小(宽度或高度，两者相同)；<span class="math inline">\(w_{d,m,n}\)</span>表示filter的第<span class="math inline">\(d\)</span>层第<span class="math inline">\(m\)</span>行第<span class="math inline">\(n\)</span>列权重；<span class="math inline">\(x_{d,i,j}\)</span>表示图像的第<span class="math inline">\(d\)</span>层第<span class="math inline">\(i\)</span>行第<span class="math inline">\(j\)</span>列像素；其它的符号含义和式1是相同的，不再赘述。</p>
+<p>我们前面还曾提到，每个卷积层可以有多个filter。每个filter和原始图像进行卷积后，都可以得到一个Feature Map。因此，卷积后Feature Map的深度(个数)和卷积层的filter个数是相同的。</p>
+<p>下面的动画显示了包含两个filter的卷积层的计算。我们可以看到7*7*3输入，经过两个3*3*3filter的卷积(步幅为2)，得到了3*3*2的输出。另外我们也会看到下图的Zero padding是1，也就是在输入元素的周围补了一圈0。Zero padding对于图像边缘部分的特征提取是很有帮助的。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2256672-958f31b01695b085.gif"></p>
+<p>以上就是卷积层的计算方法。这里面体现了局部连接和权值共享：每层神经元只和上一层部分神经元相连(卷积计算规则)，且filter的权值对于上一层所有神经元都是一样的。对于包含两个3*3*3的fitler的卷积层来说，其参数数量仅有(3*3*3+1)*2=56个，且参数数量与上一层神经元个数无关。与全连接神经网络相比，其参数数量大大减少了。</p>
+<h3 id="用卷积公式来表达卷积层计算">用卷积公式来表达卷积层计算</h3>
+<p>不想了解太多数学细节的读者可以跳过这一节，不影响对全文的理解。</p>
+<p>式4的表达很是繁冗，最好能简化一下。就像利用矩阵可以简化表达全连接神经网络的计算一样，我们利用卷积公式可以简化卷积神经网络的表达。</p>
+<p>下面我们介绍二维卷积公式。</p>
+<p>设矩阵<span class="math inline">\(A\)</span>，<span class="math inline">\(B\)</span>，其行、列数分别为<span class="math inline">\(m_a\)</span>、<span class="math inline">\(n_a\)</span>、<span class="math inline">\(m_b\)</span>、<span class="math inline">\(n_b\)</span>，则二维卷积公式如下：</p>
+<p><span class="math display">\[\begin{align}
+C_{s,t}&amp;=\sum_0^{m_a-1}\sum_0^{n_a-1} A_{m,n}B_{s-m,t-n}
+\end{align}\]</span></p>
+<p>且<span class="math inline">\(s\)</span>,<span class="math inline">\(t\)</span>满足条件<span class="math inline">\(0\le{s}\lt{m_a+m_b-1}, 0\le{t}\lt{n_a+n_b-1}\)</span></p>
+<p>我们可以把上式写成</p>
+<p>$$C = A * B(式5)##</p>
+<p>如果我们按照式5来计算卷积，我们可以发现矩阵A实际上是filter，而矩阵B是待卷积的输入，位置关系也有所不同：</p>
+<p><img src="http://p082waf5e.bkt.clouddn.com/15149501232624.jpg"></p>
+<p>从上图可以看到，A左上角的值<span class="math inline">\(a_{0,0}\)</span>与B对应区块中右下角<span class="math inline">\(x_{1,1}\)</span>的值相乘，而不是与左上角的<span class="math inline">\(x_{0,0}\)</span>相乘。因此，数学中的卷积和卷积神经网络中的『卷积』还是有区别的，为了避免混淆，我们把卷积神经网络中的『卷积』操作叫做互相关(cross-correlation)操作。</p>
+<p>卷积和互相关操作是可以转化的。首先，我们把矩阵A翻转180度，然后再交换A和B的位置（即把B放在左边而把A放在右边。卷积满足交换率，这个操作不会导致结果变化），那么卷积就变成了互相关。</p>
+<p>如果我们不去考虑两者这么一点点的区别，我们可以把式5代入到式4：</p>
+<p><span class="math display">\[A=f(\sum_{d=0}^{D-1}X_d*W_d+w_b)\qquad(式6)\]</span></p>
+<p>其中，<span class="math inline">\(A\)</span>是卷积层输出的feature map。同式4相比，式6就简单多了。然而，这种简洁写法只适合步长为1的情况。</p>
+<h3 id="pooling层输出值的计算">Pooling层输出值的计算</h3>
+<p>Pooling层主要的作用是下采样，通过去掉Feature Map中不重要的样本，进一步减少参数数量。Pooling的方法很多，最常用的是Max Pooling。Max Pooling实际上就是在n*n的样本中取最大值，作为采样后的样本值。下图是2*2 max pooling：</p>
+<p><img src="http://p082waf5e.bkt.clouddn.com/15149502879011.jpg"></p>
+<p>除了Max Pooing之外，常用的还有Mean Pooling——取各样本的平均值。 对于深度为D的Feature Map，各层独立做Pooling，因此Pooling后的深度仍然为D。</p>
+<h3 id="全连接层">全连接层</h3>
+<p>全连接层输出值的计算和上一篇文章<a href="https://otter668.github.io/2017/12/19/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%92%8C%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%AE%97%E6%B3%95/" target="_blank" rel="noopener">深度学习系列（3）- 神经网络和反向传播算法</a>讲过的全连接神经网络是一样的，这里就不再赘述了。</p>
+<h2 id="卷积神经网络的训练">卷积神经网络的训练</h2>
+<p>和全连接神经网络相比，卷积神经网络的训练要复杂一些。但训练的原理是一样的：利用链式求导计算损失函数对每个权重的偏导数（梯度），然后根据梯度下降公式更新权重。训练算法依然是反向传播算法。</p>
+<p>我们先回忆一下上一篇文章<a href="https://otter668.github.io/2017/12/19/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%92%8C%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%AE%97%E6%B3%95/" target="_blank" rel="noopener">深度学习系列（3）- 神经网络和反向传播算法</a>介绍的反向传播算法，整个算法分为三个步骤：</p>
+<ol type="1">
+<li>前向计算每个神经元的输出值<span class="math inline">\(a_j\)</span>（<span class="math inline">\(j\)</span>表示网络的第<span class="math inline">\(j\)</span>个神经元，以下同）；</li>
+<li>反向计算每个神经元的误差项<span class="math inline">\(\delta_j\)</span>，<span class="math inline">\(\delta_j\)</span>在有的文献中也叫做敏感度(sensitivity)。它实际上是网络的损失函数<span class="math inline">\(E_d\)</span>对神经元加权输入<span class="math inline">\(net_j\)</span>的偏导数，即；<span class="math inline">\(\delta_j=\frac{\partial{E_d}}{\partial{net_j}}\)</span></li>
+<li>计算每个神经元连接权重<span class="math inline">\(w_{ji}\)</span>的梯度（<span class="math inline">\(w_{ji}\)</span>表示从神经元<span class="math inline">\(i\)</span>连接到神经元<span class="math inline">\(j\)</span>的权重），公式为<span class="math inline">\(\frac{\partial{E_d}}{\partial{w_{ji}}}=a_i\delta_j\)</span>，其中，<span class="math inline">\(a_i\)</span>表示神经元<span class="math inline">\(i\)</span>的输出。</li>
+</ol>
+<p>最后，根据梯度下降法则更新每个权重即可。</p>
+<p>对于卷积神经网络，由于涉及到局部连接、下采样的等操作，影响到了第二步误差项<span class="math inline">\(\delta\)</span>的具体计算方法，而权值共享影响了第三步权重<span class="math inline">\(w\)</span>的梯度的计算方法。接下来，我们分别介绍卷积层和Pooling层的训练算法。</p>
+<h3 id="卷积层的训练">卷积层的训练</h3>
+<p>对于卷积层，我们先来看看上面的第二步，即如何将误差项<span class="math inline">\(\delta\)</span>传递到上一层；然后再来看看第三步，即如何计算filter每个权值<span class="math inline">\(w\)</span>的梯度。</p>
+<h4 id="卷积层误差项的传递">卷积层误差项的传递</h4>
+<h5 id="最简单情况下误差项的传递">最简单情况下误差项的传递</h5>
+<p>我们先来考虑步长为1、输入的深度为1、filter个数为1的最简单的情况。</p>
+<p>假设输入的大小为3*3，filter大小为2*2，按步长为1卷积，我们将得到2*2的feature map。如下图所示：</p>
+<p><img src="http://p082waf5e.bkt.clouddn.com/15149657809363.jpg"></p>
+<p>在上图中，为了描述方便，我们为每个元素都进行了编号。用<span class="math inline">\(\delta^{l-1}_{i,j}\)</span>表示第<span class="math inline">\(l-1\)</span>层第<span class="math inline">\(i\)</span>行第<span class="math inline">\(j\)</span>列的误差项；用<span class="math inline">\(w_{m,n}\)</span>表示filter第<span class="math inline">\(m\)</span>行第<span class="math inline">\(n\)</span>列权重，用<span class="math inline">\(w_b\)</span>表示filter的偏置项；用<span class="math inline">\(a^{l-1}_{i,j}\)</span>表示第<span class="math inline">\(l-1\)</span>层第<span class="math inline">\(i\)</span>行第<span class="math inline">\(j\)</span>列神经元的输出；用<span class="math inline">\(net^{l-1}_{i,j}\)</span>表示第<span class="math inline">\(l-1\)</span>层神经元的加权输入；用<span class="math inline">\(\delta^l_{i,j}\)</span>表示第<span class="math inline">\(l\)</span>层第<span class="math inline">\(i\)</span>行第<span class="math inline">\(j\)</span>列的误差项；用<span class="math inline">\(f^{l-1}\)</span>表示第<span class="math inline">\(l-1\)</span>层的激活函数。它们之间的关系如下：</p>
+<p><span class="math display">\[\begin{align}
+net^l&amp;=conv(W^l, a^{l-1})+w_b\\
+a^{l-1}_{i,j}&amp;=f^{l-1}(net^{l-1}_{i,j})
+\end{align}\]</span></p>
+<p>上式中，<span class="math inline">\(net^l\)</span>、<span class="math inline">\(W^l\)</span>、<span class="math inline">\(a^{l-1}\)</span>都是数组，<span class="math inline">\(W^l\)</span>是由<span class="math inline">\(w_{m,n}\)</span>组成的数组，<span class="math inline">\(conv\)</span>表示卷积操作。</p>
+<p>在这里，我们假设第<span class="math inline">\(l\)</span>中的每个<span class="math inline">\(\delta^l\)</span>值都已经算好，我们要做的是计算第<span class="math inline">\(l-1\)</span>层每个神经元的误差项<span class="math inline">\(\delta^{l-1}\)</span>。</p>
+<p>根据链式求导法则：</p>
+<p><span class="math display">\[\begin{align}
+\delta^{l-1}_{i,j}&amp;=\frac{\partial{E_d}}{\partial{net^{l-1}_{i,j}}}\\
+&amp;=\frac{\partial{E_d}}{\partial{a^{l-1}_{i,j}}}\frac{\partial{a^{l-1}_{i,j}}}{\partial{net^{l-1}_{i,j}}}
+\end{align}\]</span></p>
+<p>我们先求第一项<span class="math inline">\(\frac{\partial{E_d}}{\partial{a^{l-1}_{i,j}}}\)</span>。我们先来看几个特例，然后从中总结出一般性的规律。</p>
+<p>例1，计算<span class="math inline">\(\frac{\partial{E_d}}{\partial{a^{l-1}_{1,1}}}\)</span>，<span class="math inline">\(a^{l-1}_{1,1}\)</span>仅与<span class="math inline">\(net^l_{1,1}\)</span>的计算有关：</p>
+<p><span class="math display">\[net^j_{1,1}=w_{1,1}a^{l-1}_{1,1}+w_{1,2}a^{l-1}_{1,2}+w_{2,1}a^{l-1}_{2,1}+w_{2,2}a^{l-1}_{2,2}+w_b\]</span></p>
+<p>因此：</p>
+<p><span class="math display">\[\begin{align}
+\frac{\partial{E_d}}{\partial{a^{l-1}_{1,1}}}&amp;=\frac{\partial{E_d}}{\partial{net^{l}_{1,1}}}\frac{\partial{net^{l}_{1,1}}}{\partial{a^{l-1}_{1,1}}}\\
+&amp;=\delta^l_{1,1}w_{1,1}
+\end{align}\]</span></p>
+<p>例2，计算<span class="math inline">\(\frac{\partial{E_d}}{\partial{a^{l-1}_{1,2}}}\)</span>，<span class="math inline">\(a^{l-1}_{1,2}\)</span>与<span class="math inline">\(net^l_{1,1}\)</span>和<span class="math inline">\(net^l_{1,2}\)</span>的计算都有关：</p>
+<p><span class="math display">\[net^j_{1,1}=w_{1,1}a^{l-1}_{1,1}+w_{1,2}a^{l-1}_{1,2}+w_{2,1}a^{l-1}_{2,1}+w_{2,2}a^{l-1}_{2,2}+w_b\\
+net^j_{1,2}=w_{1,1}a^{l-1}_{1,2}+w_{1,2}a^{l-1}_{1,3}+w_{2,1}a^{l-1}_{2,2}+w_{2,2}a^{l-1}_{2,3}+w_b\\\]</span></p>
+<p>因此：</p>
+<p><span class="math display">\[\begin{align}
+\frac{\partial{E_d}}{\partial{a^{l-1}_{1,2}}}&amp;=\frac{\partial{E_d}}{\partial{net^{l}_{1,1}}}\frac{\partial{net^{l}_{1,1}}}{\partial{a^{l-1}_{1,2}}}+\frac{\partial{E_d}}{\partial{net^{l}_{1,2}}}\frac{\partial{net^{l}_{1,2}}}{\partial{a^{l-1}_{1,2}}}\\
+&amp;=\delta^l_{1,1}w_{1,2}+\delta^l_{1,2}w_{1,1}
+\end{align}\]</span></p>
+<p>例3，计算<span class="math inline">\(\frac{\partial{E_d}}{\partial{a^{l-1}_{2,2}}}\)</span>，<span class="math inline">\(a^{l-1}_{2,2}\)</span>与<span class="math inline">\(net^l_{1,1}\)</span>、<span class="math inline">\(net^l_{1,2}\)</span>、<span class="math inline">\(net^l_{2,1}\)</span>和<span class="math inline">\(net^l_{2,2}\)</span>的计算都有关：</p>
+<p><span class="math display">\[net^j_{1,1}=w_{1,1}a^{l-1}_{1,1}+w_{1,2}a^{l-1}_{1,2}+w_{2,1}a^{l-1}_{2,1}+w_{2,2}a^{l-1}_{2,2}+w_b\\
+net^j_{1,2}=w_{1,1}a^{l-1}_{1,2}+w_{1,2}a^{l-1}_{1,3}+w_{2,1}a^{l-1}_{2,2}+w_{2,2}a^{l-1}_{2,3}+w_b\\
+net^j_{2,1}=w_{1,1}a^{l-1}_{2,1}+w_{1,2}a^{l-1}_{2,2}+w_{2,1}a^{l-1}_{3,1}+w_{2,2}a^{l-1}_{3,2}+w_b\\
+net^j_{2,2}=w_{1,1}a^{l-1}_{2,2}+w_{1,2}a^{l-1}_{2,3}+w_{2,1}a^{l-1}_{3,2}+w_{2,2}a^{l-1}_{3,3}+w_b\]</span></p>
+<p>因此：</p>
+<p><span class="math display">\[\begin{align}
+\frac{\partial{E_d}}{\partial{a^{l-1}_{2,2}}}&amp;=\frac{\partial{E_d}}{\partial{net^{l}_{1,1}}}\frac{\partial{net^{l}_{1,1}}}{\partial{a^{l-1}_{2,2}}}+\frac{\partial{E_d}}{\partial{net^{l}_{1,2}}}\frac{\partial{net^{l}_{1,2}}}{\partial{a^{l-1}_{2,2}}}+\frac{\partial{E_d}}{\partial{net^{l}_{2,1}}}\frac{\partial{net^{l}_{2,1}}}{\partial{a^{l-1}_{2,2}}}+\frac{\partial{E_d}}{\partial{net^{l}_{2,2}}}\frac{\partial{net^{l}_{2,2}}}{\partial{a^{l-1}_{2,2}}}\\
+&amp;=\delta^l_{1,1}w_{2,2}+\delta^l_{1,2}w_{2,1}+\delta^l_{2,1}w_{1,2}+\delta^l_{2,2}w_{1,1}
+\end{align}\]</span></p>
+<p>从上面三个例子，我们发挥一下想象力，不难发现，计算<span class="math inline">\(\frac{\partial{E_d}}{\partial{a^{l-1}}}\)</span>，相当于把第<span class="math inline">\(l\)</span>层的sensitive map周围补一圈0，在与180度翻转后的filter进行cross-correlation，就能得到想要结果，如下图所示：</p>
+<p><img src="http://p082waf5e.bkt.clouddn.com/15149706958920.jpg"></p>
+<p>因为卷积相当于将filter旋转180度的cross-correlation，因此上图的计算可以用卷积公式完美的表达：</p>
+<p><span class="math display">\[\frac{\partial{E_d}}{\partial{a_l}}=\delta^l*W^l\]</span></p>
+<p>上式中的<span class="math inline">\(W^l\)</span>表示第<span class="math inline">\(l\)</span>层的filter的权重数组。也可以把上式的卷积展开，写成求和的形式：</p>
+<p><span class="math display">\[\frac{\partial{E_d}}{\partial{a^l_{i,j}}}=\sum_m\sum_n{w^l_{m,n}\delta^l_{i+m,j+n}}\]</span></p>
+<p>现在，我们再求第二项<span class="math inline">\(\frac{\partial{a^{l-1}_{i,j}}}{\partial{net^{l-1}_{i,j}}}\)</span>。因为</p>
+<p><span class="math display">\[a^{l-1}_{i,j}=f(net^{l-1}_{i,j})\]</span></p>
+<p>将第一项和第二项组合起来，我们得到最终的公式：</p>
+<p><span class="math display">\[\begin{align}
+\delta^{l-1}_{i,j}&amp;=\frac{\partial{E_d}}{\partial{net^{l-1}_{i,j}}}\\
+&amp;=\frac{\partial{E_d}}{\partial{a^{l-1}_{i,j}}}\frac{\partial{a^{l-1}_{i,j}}}{\partial{net^{l-1}_{i,j}}}\\
+&amp;=\sum_m\sum_n{w^l_{m,n}\delta^l_{i+m,j+n}}f&#39;(net^{l-1}_{i,j})\qquad(式7)
+\end{align}\]</span></p>
+<p>也可以将式7写成卷积的形式：</p>
+<p><span class="math display">\[\delta^{l-1}=\delta^l*W^l\circ f&#39;(net^{l-1})\qquad(式8)\]</span></p>
+<p>其中，符号<span class="math inline">\(\circ\)</span>表示element-wise product，即将矩阵中每个对应元素相乘。注意式8中的<span class="math inline">\(\delta^{l-1}\)</span>、<span class="math inline">\(\delta^l\)</span>、<span class="math inline">\(net^{l-1}\)</span>都是矩阵。</p>
+<p>以上就是步长为1、输入的深度为1、filter个数为1的最简单的情况，卷积层误差项传递的算法。下面我们来推导一下步长为S的情况。</p>
+<p>卷积步长为S时的误差传递</p>
+<p>我们先来看看步长为S与步长为1的差别。</p>
+<p><img src="http://p082waf5e.bkt.clouddn.com/15149711226279.jpg"></p>
+<p>如上图，上面是步长为1时的卷积结果，下面是步长为2时的卷积结果。我们可以看出，因为步长为2，得到的feature map跳过了步长为1时相应的部分。因此，当我们反向计算误差项时，我们可以对步长为S的sensitivity map相应的位置进行补0，将其『还原』成步长为1时的sensitivity map，再用式8进行求解。</p>
+<h5 id="输入层深度为d时的误差传递">输入层深度为D时的误差传递</h5>
+<p>当输入深度为D时，filter的深度也必须为D，<span class="math inline">\(l-1\)</span>层的<span class="math inline">\(d_i\)</span>通道只与filter的通道的权重进行计算。因此，反向计算误差项时，我们可以使用式8，用filter的第<span class="math inline">\(d_i\)</span>通道权重对第<span class="math inline">\(l\)</span>层sensitivity map进行卷积，得到第<span class="math inline">\(l-1\)</span>层<span class="math inline">\(d_i\)</span>通道的sensitivity map。如下图所示：</p>
+<p><img src="http://p082waf5e.bkt.clouddn.com/15149714358686.jpg"></p>
+<h5 id="filter数量为n时的误差传递">filter数量为N时的误差传递</h5>
+<p>filter数量为N时，输出层的深度也为N，第<span class="math inline">\(i\)</span>个filter卷积产生输出层的第<span class="math inline">\(i\)</span>个feature map。由于第<span class="math inline">\(l-1\)</span>层每个加权输入<span class="math inline">\(net^{l-1}_{d, i,j}\)</span>都同时影响了第<span class="math inline">\(l\)</span>层所有feature map的输出值，因此，反向计算误差项时，需要使用全导数公式。也就是，我们先使用第<span class="math inline">\(d\)</span>个filter对第<span class="math inline">\(l\)</span>层相应的第<span class="math inline">\(d\)</span>个sensitivity map进行卷积，得到一组N个<span class="math inline">\(l-1\)</span>层的偏sensitivity map。依次用每个filter做这种卷积，就得到D组偏sensitivity map。最后在各组之间将N个偏sensitivity map 按元素相加，得到最终的N个<span class="math inline">\(l-1\)</span>层的sensitivity map：</p>
+<p><span class="math display">\[\delta^{l-1}=\sum_{d=0}^D\delta_d^l*W_d^l\circ f&#39;(net^{l-1})\qquad(式9)\]</span></p>
+<p>以上就是卷积层误差项传递的算法，如果读者还有所困惑，可以参考后面的代码实现来理解。</p>
+<h4 id="卷积层filter权重梯度的计算">卷积层filter权重梯度的计算</h4>
+<p>我们要在得到第<span class="math inline">\(l\)</span>层sensitivity map的情况下，计算filter的权重的梯度，由于卷积层是权重共享的，因此梯度的计算稍有不同。</p>
+<p><img src="http://p082waf5e.bkt.clouddn.com/15149723977301.jpg"></p>
+<p>如上图所示，<span class="math inline">\(a^l_{i,j}\)</span>是第<span class="math inline">\(l-1\)</span>层的输出，<span class="math inline">\(w_{i,j}\)</span>是第<span class="math inline">\(l\)</span>层filter的权重，<span class="math display">\[是第\]</span>层的sensitivity map。我们的任务是计算<span class="math inline">\(w_{i,j}\)</span>的梯度，即<span class="math inline">\(\frac{\partial{E_d}}{\partial{w_{i,j}}}\)</span>。</p>
+<p>为了计算偏导数，我们需要考察权重<span class="math inline">\(w_{i,j}\)</span>对<span class="math inline">\(E_d\)</span>的影响。权重项<span class="math inline">\(w_{i,j}\)</span>通过影响<span class="math inline">\(net^l_{i,j}\)</span>的值，进而影响<span class="math inline">\(E_d\)</span>。我们仍然通过几个具体的例子来看权重项<span class="math inline">\(w_{i,j}\)</span>对<span class="math inline">\(net^l_{i,j}\)</span>的影响，然后再从中总结出规律。</p>
+<p>例1，计算<span class="math inline">\(\frac{\partial{E_d}}{\partial{w_{1,1}}}\)</span>：</p>
+<p><span class="math display">\[net^j_{1,1}=w_{1,1}a^{l-1}_{1,1}+w_{1,2}a^{l-1}_{1,2}+w_{2,1}a^{l-1}_{2,1}+w_{2,2}a^{l-1}_{2,2}+w_b\\
+net^j_{1,2}=w_{1,1}a^{l-1}_{1,2}+w_{1,2}a^{l-1}_{1,3}+w_{2,1}a^{l-1}_{2,2}+w_{2,2}a^{l-1}_{2,3}+w_b\\
+net^j_{2,1}=w_{1,1}a^{l-1}_{2,1}+w_{1,2}a^{l-1}_{2,2}+w_{2,1}a^{l-1}_{3,1}+w_{2,2}a^{l-1}_{3,2}+w_b\\
+net^j_{2,2}=w_{1,1}a^{l-1}_{2,2}+w_{1,2}a^{l-1}_{2,3}+w_{2,1}a^{l-1}_{3,2}+w_{2,2}a^{l-1}_{3,3}+w_b\]</span></p>
+<p>从上面的公式看出，由于权值共享，权值<span class="math inline">\(w_{1,1}\)</span>对所有的<span class="math inline">\(net^l_{i,j}\)</span>都有影响。<span class="math inline">\(E_d\)</span>是<span class="math inline">\(net^l_{1,1}\)</span>、<span class="math inline">\(net^l_{1,2}\)</span>、<span class="math inline">\(net^l_{2,1}\)</span>…的函数，而<span class="math inline">\(net^l_{1,1}\)</span>、<span class="math inline">\(net^l_{1,2}\)</span>、<span class="math inline">\(net^l_{2,1}\)</span>…又是<span class="math inline">\(W_{1,1}\)</span>的函数，根据全导数公式，计算<span class="math inline">\(\frac{\partial{E_d}}{\partial{w_{1,1}}}\)</span>就是要把每个偏导数都加起来：</p>
+<p><span class="math display">\[\begin{align}
+\frac{\partial{E_d}}{\partial{w_{1,1}}}&amp;=\frac{\partial{E_d}}{\partial{net^{l}_{1,1}}}\frac{\partial{net^{l}_{1,1}}}{\partial{w_{1,1}}}+\frac{\partial{E_d}}{\partial{net^{l}_{1,2}}}\frac{\partial{net^{l}_{1,2}}}{\partial{w_{1,1}}}+\frac{\partial{E_d}}{\partial{net^{l}_{2,1}}}\frac{\partial{net^{l}_{2,1}}}{\partial{w_{1,1}}}+\frac{\partial{E_d}}{\partial{net^{l}_{2,2}}}\frac{\partial{net^{l}_{2,2}}}{\partial{w_{1,1}}}\\
+&amp;=\delta^l_{1,1}a^{l-1}_{1,1}+\delta^l_{1,2}a^{l-1}_{1,2}+\delta^l_{2,1}a^{l-1}_{2,1}+\delta^l_{2,2}a^{l-1}_{2,2}
+\end{align}\]</span></p>
+<p>例2，计算<span class="math inline">\(\frac{\partial{E_d}}{\partial{w_{1,2}}}\)</span>：</p>
+<p>通过查看<span class="math inline">\(w_{1,2}\)</span>与<span class="math inline">\(net^l_{i,j}\)</span>的关系，我们很容易得到：</p>
+<p><span class="math display">\[\frac{\partial{E_d}}{\partial{w_{1,2}}}=\delta^l_{1,1}a^{l-1}_{1,2}+\delta^l_{1,2}a^{l-1}_{1,3}+\delta^l_{2,1}a^{l-1}_{2,2}+\delta^l_{2,2}a^{l-1}_{2,3}\]</span></p>
+<p>实际上，每个权重项都是类似的，我们不一一举例了。现在，是我们再次发挥想象力的时候，我们发现计算<span class="math inline">\(\frac{\partial{E_d}}{\partial{w_{i,j}}}\)</span>规律是：</p>
+<p><span class="math display">\[\frac{\partial{E_d}}{\partial{w_{i,j}}}=\sum_m\sum_n\delta_{m,n}a^{l-1}_{i+m,j+n}\]</span></p>
+<p>也就是用sensitivity map作为卷积核，在input上进行cross-correlation，如下图所示：</p>
+<p><img src="http://p082waf5e.bkt.clouddn.com/15149812082441.jpg"></p>
+<p>最后，我们来看一看偏置项的梯度<span class="math inline">\(\frac{\partial{E_d}}{\partial{w_b}}\)</span>。通过查看前面的公式，我们很容易发现：</p>
+<p><span class="math display">\[\begin{align}
+\frac{\partial{E_d}}{\partial{w_b}}&amp;=\frac{\partial{E_d}}{\partial{net^{l}_{1,1}}}\frac{\partial{net^{l}_{1,1}}}{\partial{w_b}}+\frac{\partial{E_d}}{\partial{net^{l}_{1,2}}}\frac{\partial{net^{l}_{1,2}}}{\partial{w_b}}+\frac{\partial{E_d}}{\partial{net^{l}_{2,1}}}\frac{\partial{net^{l}_{2,1}}}{\partial{w_b}}+\frac{\partial{E_d}}{\partial{net^{l}_{2,2}}}\frac{\partial{net^{l}_{2,2}}}{\partial{w_b}}\\
+&amp;=\delta^l_{1,1}+\delta^l_{1,2}+\delta^l_{2,1}+\delta^l_{2,2}\\
+&amp;=\sum_i\sum_j\delta^l_{i,j}
+\end{align}\]</span></p>
+<p>也就是偏置项的梯度就是sensitivity map所有误差项之和。</p>
+<p>对于步长为S的卷积层，处理方法与传递<strong>误差项</strong>是一样的，首先将sensitivity map『还原』成步长为1时的sensitivity map，再用上面的方法进行计算。</p>
+<p>获得了所有的梯度之后，就是根据梯度下降算法来更新每个权重。这在前面的文章中已经反复写过，这里就不再重复了。</p>
+<p>至此，我们已经解决了卷积层的训练问题，接下来我们看一看Pooling层的训练。</p>
+<h3 id="pooling层的训练">Pooling层的训练</h3>
+<p>无论max pooling还是mean pooling，都没有需要学习的参数。因此，在卷积神经网络的训练中，Pooling层需要做的仅仅是将误差项传递到上一层，而没有梯度的计算。</p>
+<h4 id="max-pooling误差项的传递">Max Pooling误差项的传递</h4>
+<p>如下图，假设第<span class="math inline">\(l-1\)</span>层大小为4*4，pooling filter大小为2*2，步长为2，这样，max pooling之后，第<span class="math inline">\(l\)</span>层大小为2*2。假设第<span class="math inline">\(l\)</span>层的<span class="math inline">\(\delta\)</span>值都已经计算完毕，我们现在的任务是计算第<span class="math inline">\(l-1\)</span>层的<span class="math inline">\(\delta\)</span>值。</p>
+<p><img src="http://p082waf5e.bkt.clouddn.com/15149814951003.jpg"></p>
+<p>我们用<span class="math inline">\(net^{l-1}_{i,j}\)</span>表示第<span class="math inline">\(l-1\)</span>层的加权输入；用<span class="math inline">\(net^l_{i,j}\)</span>表示第<span class="math inline">\(l\)</span>层的加权输入。我们先来考察一个具体的例子，然后再总结一般性的规律。对于max pooling：</p>
+<p><span class="math display">\[net^l_{1,1}=max(net^{l-1}_{1,1},net^{l-1}_{1,2},net^{l-1}_{2,1},net^{l-1}_{2,2})\]</span></p>
+<p>也就是说，只有区块中最大的<span class="math inline">\(net^{l-1}_{i,j}\)</span>才会对<span class="math inline">\(net^l_{i,j}\)</span>的值产生影响。我们假设最大的值是<span class="math inline">\(net^l_{1,1}\)</span>，则上式相当于：</p>
+<p><span class="math display">\[net^l_{1,1}=net^{l-1}_{1,1}\]</span></p>
+<p>那么，我们不难求得下面几个偏导数：</p>
+<p><span class="math display">\[\begin{align}
+\frac{\partial{net^l_{1,1}}}{\partial{net^{l-1}_{1,1}}}=1\\
+\frac{\partial{net^l_{1,1}}}{\partial{net^{l-1}_{1,2}}}=0\\
+\frac{\partial{net^l_{1,1}}}{\partial{net^{l-1}_{2,1}}}=0\\
+\frac{\partial{net^l_{1,1}}}{\partial{net^{l-1}_{2,2}}}=0
+\end{align}\]</span></p>
+<p>因此：</p>
+<p><span class="math display">\[\begin{align}
+\delta^{l-1}_{1,1}&amp;=\frac{\partial{E_d}}{\partial{net^{l-1}_{1,1}}}\\
+&amp;=\frac{\partial{E_d}}{\partial{net^{l}_{1,1}}}\frac{\partial{net^{l}_{1,1}}}{\partial{net^{l-1}_{1,1}}}\\
+&amp;=\delta^{l}_{1,1}\\
+\end{align}\]</span></p>
+<p>而：</p>
+<p><span class="math display">\[\begin{align}
+\delta^{l-1}_{1,2}&amp;=\frac{\partial{E_d}}{\partial{net^{l-1}_{1,2}}}\\
+&amp;=\frac{\partial{E_d}}{\partial{net^{l}_{1,1}}}\frac{\partial{net^{l}_{1,1}}}{\partial{net^{l-1}_{1,2}}}\\
+&amp;=0\\
+\delta^{l-1}_{2,1}&amp;=\frac{\partial{E_d}}{\partial{net^{l-1}_{2,1}}}\\
+&amp;=\frac{\partial{E_d}}{\partial{net^{l}_{1,1}}}\frac{\partial{net^{l}_{1,1}}}{\partial{net^{l-1}_{2,1}}}\\
+&amp;=0\\
+\delta^{l-1}_{1,1}&amp;=\frac{\partial{E_d}}{\partial{net^{l-1}_{2,2}}}\\
+&amp;=\frac{\partial{E_d}}{\partial{net^{l}_{1,1}}}\frac{\partial{net^{l}_{1,1}}}{\partial{net^{l-1}_{2,2}}}\\
+&amp;=0\\
+\end{align}\]</span></p>
+<p>现在，我们发现了规律：对于max pooling，下一层的误差项的值会原封不动的传递到上一层对应区块中的最大值所对应的神经元，而其他神经元的误差项的值都是0。如下图所示(假设<span class="math inline">\(a^{l-1}_{1,1}\)</span>、<span class="math inline">\(a^{l-1}_{1,4}\)</span>、<span class="math inline">\(a^{l-1}_{4,1}\)</span>、<span class="math inline">\(a^{l-1}_{4,4}\)</span>为所在区块中的最大输出值)：</p>
+<p><img src="http://p082waf5e.bkt.clouddn.com/15150327145285.jpg"></p>
+<h4 id="mean-pooling误差项的传递">Mean Pooling误差项的传递</h4>
+<p>我们还是用前面屡试不爽的套路，先研究一个特殊的情形，再扩展为一般规律。</p>
+<p><img src="http://p082waf5e.bkt.clouddn.com/15150327570445.jpg"></p>
+<p>如上图，我们先来考虑计算<span class="math inline">\(\delta^{l-1}_{1,1}\)</span>。我们先来看看<span class="math inline">\(net^{l-1}_{1,1}\)</span>如何影响<span class="math inline">\(net^l_{1,1}\)</span>。</p>
+<p><span class="math display">\[net^j_{1,1}=\frac{1}{4}(net^{l-1}_{1,1}+net^{l-1}_{1,2}+net^{l-1}_{2,1}+net^{l-1}_{2,2})\]</span></p>
+<p>根据上式，我们一眼就能看出来：</p>
+<p><span class="math display">\[\frac{\partial{net^l_{1,1}}}{\partial{net^{l-1}_{1,1}}}=\frac{1}{4}\\
+\frac{\partial{net^l_{1,1}}}{\partial{net^{l-1}_{1,2}}}=\frac{1}{4}\\
+\frac{\partial{net^l_{1,1}}}{\partial{net^{l-1}_{2,1}}}=\frac{1}{4}\\
+\frac{\partial{net^l_{1,1}}}{\partial{net^{l-1}_{2,2}}}=\frac{1}{4}\\\]</span></p>
+<p>所以，根据链式求导法则，我们不难算出：</p>
+<p><span class="math display">\[\begin{align}
+\delta^{l-1}_{1,1}&amp;=\frac{\partial{E_d}}{\partial{net^{l-1}_{1,1}}}\\
+&amp;=\frac{\partial{E_d}}{\partial{net^{l}_{1,1}}}\frac{\partial{net^{l}_{1,1}}}{\partial{net^{l-1}_{1,1}}}\\
+&amp;=\frac{1}{4}\delta^{l}_{1,1}\\
+\end{align}\]</span></p>
+<p>同样，我们可以算出<span class="math inline">\(\delta^{l-1}_{1,2}\)</span>、<span class="math inline">\(\delta^{l-1}_{2,1}\)</span>、<span class="math inline">\(\delta^{l-1}_{2,2}\)</span>：</p>
+<p><span class="math display">\[\begin{align}
+\delta^{l-1}_{1,2}&amp;=\frac{\partial{E_d}}{\partial{net^{l-1}_{1,2}}}\\
+&amp;=\frac{\partial{E_d}}{\partial{net^{l}_{1,1}}}\frac{\partial{net^{l}_{1,1}}}{\partial{net^{l-1}_{1,2}}}\\
+&amp;=\frac{1}{4}\delta^{l}_{1,1}\\
+\delta^{l-1}_{2,1}&amp;=\frac{\partial{E_d}}{\partial{net^{l-1}_{2,1}}}\\
+&amp;=\frac{\partial{E_d}}{\partial{net^{l}_{1,1}}}\frac{\partial{net^{l}_{1,1}}}{\partial{net^{l-1}_{2,1}}}\\
+&amp;=\frac{1}{4}\delta^{l}_{1,1}\\
+\delta^{l-1}_{2,2}&amp;=\frac{\partial{E_d}}{\partial{net^{l-1}_{2,2}}}\\
+&amp;=\frac{\partial{E_d}}{\partial{net^{l}_{1,1}}}\frac{\partial{net^{l}_{1,1}}}{\partial{net^{l-1}_{2,2}}}\\
+&amp;=\frac{1}{4}\delta^{l}_{1,1}\\
+\end{align}\]</span></p>
+<p>现在，我们发现了规律：对于mean pooling，下一层的误差项的值会平均分配到上一层对应区块中的所有神经元。如下图所示：</p>
+<p><img src="http://p082waf5e.bkt.clouddn.com/15150340058442.jpg"></p>
+<p>上面这个算法可以表达为高大上的克罗内克积(Kronecker product)的形式，有兴趣的读者可以研究一下。</p>
+<p><span class="math display">\[\delta^{l-1} = \delta^l\otimes(\frac{1}{n^2})_{n\times n}\]</span></p>
+<p>其中，<span class="math inline">\(n\)</span>是pooling层filter的大小，<span class="math inline">\(\delta^{l-1}\)</span>、<span class="math inline">\(\delta^l\)</span>都是矩阵。</p>
+<p>至此，我们已经把卷积层、Pooling层的训练算法介绍完毕，加上上一篇文章讲的全连接层训练算法，您应该已经具备了编写卷积神经网络代码所需要的知识。为了加深对知识的理解，接下来，我们将展示如何实现一个简单的卷积神经网络。</p>
+<h2 id="卷积神经网络的实现">卷积神经网络的实现</h2>
+<blockquote>
+<p>完整代码请参考GitHub: <a href="https://github.com/hanbt/learn_dl/blob/master/cnn.py" target="_blank" rel="noopener">GitHub_CNN</a> (python2.7)</p>
+</blockquote>
+<p>现在，我们亲自动手实现一个卷积神经网络，以便巩固我们所学的知识。</p>
+<p>首先，我们要改变一下代码的架构，『层』成为了我们最核心的组件。这是因为卷积神经网络有不同的层，而每种层的算法都在对应的类中实现。</p>
+<p>这次，我们用到了在Python中编写算法经常会用到的numpy包。为了使用numpy，我们需要先将numpy导入：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
+<h3 id="卷积层的实现">卷积层的实现</h3>
+<h4 id="卷积层初始化">卷积层初始化</h4>
+<p>我们用ConvLayer类来实现一个卷积层。下面的代码是初始化一个卷积层，可以在构造函数中设置卷积层的超参数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConvLayer</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, input_width, input_height, </span></span></span><br><span class="line"><span class="function"><span class="params">                 channel_number, filter_width, </span></span></span><br><span class="line"><span class="function"><span class="params">                 filter_height, filter_number, </span></span></span><br><span class="line"><span class="function"><span class="params">                 zero_padding, stride, activator,</span></span></span><br><span class="line"><span class="function"><span class="params">                 learning_rate)</span>:</span></span><br><span class="line">        self.input_width = input_width</span><br><span class="line">        self.input_height = input_height</span><br><span class="line">        self.channel_number = channel_number</span><br><span class="line">        self.filter_width = filter_width</span><br><span class="line">        self.filter_height = filter_height</span><br><span class="line">        self.filter_number = filter_number</span><br><span class="line">        self.zero_padding = zero_padding</span><br><span class="line">        self.stride = stride</span><br><span class="line">        self.output_width = \</span><br><span class="line">            ConvLayer.calculate_output_size(</span><br><span class="line">            self.input_width, filter_width, zero_padding,</span><br><span class="line">            stride)</span><br><span class="line">        self.output_height = \</span><br><span class="line">            ConvLayer.calculate_output_size(</span><br><span class="line">            self.input_height, filter_height, zero_padding,</span><br><span class="line">            stride)</span><br><span class="line">        self.output_array = np.zeros((self.filter_number, </span><br><span class="line">            self.output_height, self.output_width))</span><br><span class="line">        self.filters = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(filter_number):</span><br><span class="line">            self.filters.append(Filter(filter_width, </span><br><span class="line">                filter_height, self.channel_number))</span><br><span class="line">        self.activator = activator</span><br><span class="line">        self.learning_rate = learning_rate</span><br></pre></td></tr></table></figure>
+<p>calculate_output_size函数用来确定卷积层输出的大小，其实现如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calculate_output_size</span><span class="params">(input_size,</span></span></span><br><span class="line"><span class="function"><span class="params">        filter_size, zero_padding, stride)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> (input_size - filter_size + </span><br><span class="line">        <span class="number">2</span> * zero_padding) / stride + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>Filter类保存了卷积层的参数以及梯度，并且实现了用梯度下降算法来更新参数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Filter</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, width, height, depth)</span>:</span></span><br><span class="line">        self.weights = np.random.uniform(<span class="number">-1e-4</span>, <span class="number">1e-4</span>,</span><br><span class="line">            (depth, height, width))</span><br><span class="line">        self.bias = <span class="number">0</span></span><br><span class="line">        self.weights_grad = np.zeros(</span><br><span class="line">            self.weights.shape)</span><br><span class="line">        self.bias_grad = <span class="number">0</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'filter weights:\n%s\nbias:\n%s'</span> % (</span><br><span class="line">            repr(self.weights), repr(self.bias))</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_weights</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.weights</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_bias</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.bias</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">update</span><span class="params">(self, learning_rate)</span>:</span></span><br><span class="line">        self.weights -= learning_rate * self.weights_grad</span><br><span class="line">        self.bias -= learning_rate * self.bias_grad</span><br></pre></td></tr></table></figure>
+<p>我们对参数的初始化采用了常用的策略，即：权重随机初始化为一个很小的值，而偏置项初始化为0。</p>
+<p>Activator类实现了激活函数，其中，forward方法实现了前向计算，而backward方法则是计算导数。比如，relu函数的实现如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ReluActivator</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, weighted_input)</span>:</span></span><br><span class="line">        <span class="comment">#return weighted_input</span></span><br><span class="line">        <span class="keyword">return</span> max(<span class="number">0</span>, weighted_input)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">backward</span><span class="params">(self, output)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span> <span class="keyword">if</span> output &gt; <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<h4 id="卷积层前向计算的实现">卷积层前向计算的实现</h4>
+<p>ConvLayer类的forward方法实现了卷积层的前向计算（即计算根据输入来计算卷积层的输出），下面是代码实现：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, input_array)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    计算卷积层的输出</span></span><br><span class="line"><span class="string">    输出结果保存在self.output_array</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    self.input_array = input_array</span><br><span class="line">    self.padded_input_array = padding(input_array,</span><br><span class="line">        self.zero_padding)</span><br><span class="line">    <span class="keyword">for</span> f <span class="keyword">in</span> range(self.filter_number):</span><br><span class="line">        filter = self.filters[f]</span><br><span class="line">        conv(self.padded_input_array, </span><br><span class="line">            filter.get_weights(), self.output_array[f],</span><br><span class="line">            self.stride, filter.get_bias())</span><br><span class="line">    element_wise_op(self.output_array, </span><br><span class="line">                    self.activator.forward)</span><br></pre></td></tr></table></figure>
+<p>上面的代码里面包含了几个工具函数。element_wise_op函数实现了对numpy数组进行按元素操作，并将返回值写回到数组中，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对numpy数组进行element wise操作</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">element_wise_op</span><span class="params">(array, op)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> np.nditer(array,</span><br><span class="line">                       op_flags=[<span class="string">'readwrite'</span>]):</span><br><span class="line">        i[...] = op(i)</span><br></pre></td></tr></table></figure>
+<p>conv函数实现了2维和3维数组的卷积，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">conv</span><span class="params">(input_array, </span></span></span><br><span class="line"><span class="function"><span class="params">         kernel_array,</span></span></span><br><span class="line"><span class="function"><span class="params">         output_array, </span></span></span><br><span class="line"><span class="function"><span class="params">         stride, bias)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    计算卷积，自动适配输入为2D和3D的情况</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    channel_number = input_array.ndim</span><br><span class="line">    output_width = output_array.shape[<span class="number">1</span>]</span><br><span class="line">    output_height = output_array.shape[<span class="number">0</span>]</span><br><span class="line">    kernel_width = kernel_array.shape[<span class="number">-1</span>]</span><br><span class="line">    kernel_height = kernel_array.shape[<span class="number">-2</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(output_height):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(output_width):</span><br><span class="line">            output_array[i][j] = (    </span><br><span class="line">                get_patch(input_array, i, j, kernel_width, </span><br><span class="line">                    kernel_height, stride) * kernel_array</span><br><span class="line">                ).sum() + bias</span><br></pre></td></tr></table></figure>
+<p>padding函数实现了zero padding操作：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 为数组增加Zero padding</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">padding</span><span class="params">(input_array, zp)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    为数组增加Zero padding，自动适配输入为2D和3D的情况</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="keyword">if</span> zp == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> input_array</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">if</span> input_array.ndim == <span class="number">3</span>:</span><br><span class="line">            input_width = input_array.shape[<span class="number">2</span>]</span><br><span class="line">            input_height = input_array.shape[<span class="number">1</span>]</span><br><span class="line">            input_depth = input_array.shape[<span class="number">0</span>]</span><br><span class="line">            padded_array = np.zeros((</span><br><span class="line">                input_depth, </span><br><span class="line">                input_height + <span class="number">2</span> * zp,</span><br><span class="line">                input_width + <span class="number">2</span> * zp))</span><br><span class="line">            padded_array[:,</span><br><span class="line">                zp : zp + input_height,</span><br><span class="line">                zp : zp + input_width] = input_array</span><br><span class="line">            <span class="keyword">return</span> padded_array</span><br><span class="line">        <span class="keyword">elif</span> input_array.ndim == <span class="number">2</span>:</span><br><span class="line">            input_width = input_array.shape[<span class="number">1</span>]</span><br><span class="line">            input_height = input_array.shape[<span class="number">0</span>]</span><br><span class="line">            padded_array = np.zeros((</span><br><span class="line">                input_height + <span class="number">2</span> * zp,</span><br><span class="line">                input_width + <span class="number">2</span> * zp))</span><br><span class="line">            padded_array[zp : zp + input_height,</span><br><span class="line">                zp : zp + input_width] = input_array</span><br><span class="line">            <span class="keyword">return</span> padded_array</span><br></pre></td></tr></table></figure>
+<h4 id="卷积层反向传播算法的实现">卷积层反向传播算法的实现</h4>
+<p>现在，是介绍卷积层核心算法的时候了。我们知道反向传播算法需要完成几个任务：</p>
+<ol type="1">
+<li>将误差项传递到上一层。</li>
+<li>计算每个参数的梯度。</li>
+<li>更新参数。</li>
+</ol>
+<p>以下代码都是在ConvLayer类中实现。我们先来看看将误差项传递到上一层的代码实现。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bp_sensitivity_map</span><span class="params">(self, sensitivity_array,</span></span></span><br><span class="line"><span class="function"><span class="params">                       activator)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    计算传递到上一层的sensitivity map</span></span><br><span class="line"><span class="string">    sensitivity_array: 本层的sensitivity map</span></span><br><span class="line"><span class="string">    activator: 上一层的激活函数</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="comment"># 处理卷积步长，对原始sensitivity map进行扩展</span></span><br><span class="line">    expanded_array = self.expand_sensitivity_map(</span><br><span class="line">        sensitivity_array)</span><br><span class="line">    <span class="comment"># full卷积，对sensitivitiy map进行zero padding</span></span><br><span class="line">    <span class="comment"># 虽然原始输入的zero padding单元也会获得残差</span></span><br><span class="line">    <span class="comment"># 但这个残差不需要继续向上传递，因此就不计算了</span></span><br><span class="line">    expanded_width = expanded_array.shape[<span class="number">2</span>]</span><br><span class="line">    zp = (self.input_width +  </span><br><span class="line">          self.filter_width - <span class="number">1</span> - expanded_width) / <span class="number">2</span></span><br><span class="line">    padded_array = padding(expanded_array, zp)</span><br><span class="line">    <span class="comment"># 初始化delta_array，用于保存传递到上一层的</span></span><br><span class="line">    <span class="comment"># sensitivity map</span></span><br><span class="line">    self.delta_array = self.create_delta_array()</span><br><span class="line">    <span class="comment"># 对于具有多个filter的卷积层来说，最终传递到上一层的</span></span><br><span class="line">    <span class="comment"># sensitivity map相当于所有的filter的</span></span><br><span class="line">    <span class="comment"># sensitivity map之和</span></span><br><span class="line">    <span class="keyword">for</span> f <span class="keyword">in</span> range(self.filter_number):</span><br><span class="line">        filter = self.filters[f]</span><br><span class="line">        <span class="comment"># 将filter权重翻转180度</span></span><br><span class="line">        flipped_weights = np.array(map(</span><br><span class="line">            <span class="keyword">lambda</span> i: np.rot90(i, <span class="number">2</span>), </span><br><span class="line">            filter.get_weights()))</span><br><span class="line">        <span class="comment"># 计算与一个filter对应的delta_array</span></span><br><span class="line">        delta_array = self.create_delta_array()</span><br><span class="line">        <span class="keyword">for</span> d <span class="keyword">in</span> range(delta_array.shape[<span class="number">0</span>]):</span><br><span class="line">            conv(padded_array[f], flipped_weights[d],</span><br><span class="line">                delta_array[d], <span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line">        self.delta_array += delta_array</span><br><span class="line">    <span class="comment"># 将计算结果与激活函数的偏导数做element-wise乘法操作</span></span><br><span class="line">    derivative_array = np.array(self.input_array)</span><br><span class="line">    element_wise_op(derivative_array, </span><br><span class="line">                    activator.backward)</span><br><span class="line">    self.delta_array *= derivative_array</span><br></pre></td></tr></table></figure>
+<p>expand_sensitivity_map方法就是将步长为S的sensitivity map『还原』为步长为1的sensitivity map，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">expand_sensitivity_map</span><span class="params">(self, sensitivity_array)</span>:</span></span><br><span class="line">    depth = sensitivity_array.shape[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># 确定扩展后sensitivity map的大小</span></span><br><span class="line">    <span class="comment"># 计算stride为1时sensitivity map的大小</span></span><br><span class="line">    expanded_width = (self.input_width - </span><br><span class="line">        self.filter_width + <span class="number">2</span> * self.zero_padding + <span class="number">1</span>)</span><br><span class="line">    expanded_height = (self.input_height - </span><br><span class="line">        self.filter_height + <span class="number">2</span> * self.zero_padding + <span class="number">1</span>)</span><br><span class="line">    <span class="comment"># 构建新的sensitivity_map</span></span><br><span class="line">    expand_array = np.zeros((depth, expanded_height, </span><br><span class="line">                             expanded_width))</span><br><span class="line">    <span class="comment"># 从原始sensitivity map拷贝误差值</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(self.output_height):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(self.output_width):</span><br><span class="line">            i_pos = i * self.stride</span><br><span class="line">            j_pos = j * self.stride</span><br><span class="line">            expand_array[:,i_pos,j_pos] = \</span><br><span class="line">                sensitivity_array[:,i,j]</span><br><span class="line">    <span class="keyword">return</span> expand_array</span><br></pre></td></tr></table></figure>
+<p>create_delta_array是创建用来保存传递到上一层的sensitivity map的数组。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_delta_array</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> np.zeros((self.channel_number,</span><br><span class="line">        self.input_height, self.input_width))</span><br></pre></td></tr></table></figure>
+<p>接下来，是计算梯度的代码。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bp_gradient</span><span class="params">(self, sensitivity_array)</span>:</span></span><br><span class="line">    <span class="comment"># 处理卷积步长，对原始sensitivity map进行扩展</span></span><br><span class="line">    expanded_array = self.expand_sensitivity_map(</span><br><span class="line">        sensitivity_array)</span><br><span class="line">    <span class="keyword">for</span> f <span class="keyword">in</span> range(self.filter_number):</span><br><span class="line">        <span class="comment"># 计算每个权重的梯度</span></span><br><span class="line">        filter = self.filters[f]</span><br><span class="line">        <span class="keyword">for</span> d <span class="keyword">in</span> range(filter.weights.shape[<span class="number">0</span>]):</span><br><span class="line">            conv(self.padded_input_array[d], </span><br><span class="line">                 expanded_array[f],</span><br><span class="line">                 filter.weights_grad[d], <span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line">        <span class="comment"># 计算偏置项的梯度</span></span><br><span class="line">        filter.bias_grad = expanded_array[f].sum()</span><br></pre></td></tr></table></figure>
+<p>最后，是按照梯度下降算法更新参数的代码，这部分非常简单。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    按照梯度下降，更新权重</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="keyword">for</span> filter <span class="keyword">in</span> self.filters:</span><br><span class="line">        filter.update(self.learning_rate)</span><br></pre></td></tr></table></figure>
+<h4 id="卷积层的梯度检查">卷积层的梯度检查</h4>
+<p>为了验证我们的公式推导和代码实现的正确性，我们必须要对卷积层进行梯度检查。下面是代吗实现：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">init_test</span><span class="params">()</span>:</span></span><br><span class="line">    a = np.array(</span><br><span class="line">        [[[<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">2</span>],</span><br><span class="line">          [<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>],</span><br><span class="line">          [<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">0</span>],</span><br><span class="line">          [<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>],</span><br><span class="line">          [<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">2</span>]],</span><br><span class="line">         [[<span class="number">1</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">0</span>],</span><br><span class="line">          [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">0</span>],</span><br><span class="line">          [<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>],</span><br><span class="line">          [<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>],</span><br><span class="line">          [<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>]],</span><br><span class="line">         [[<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">0</span>],</span><br><span class="line">          [<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>],</span><br><span class="line">          [<span class="number">0</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>],</span><br><span class="line">          [<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>],</span><br><span class="line">          [<span class="number">2</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>]]])</span><br><span class="line">    b = np.array(</span><br><span class="line">        [[[<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>],</span><br><span class="line">          [<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>],</span><br><span class="line">          [<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>]],</span><br><span class="line">         [[<span class="number">1</span>,<span class="number">0</span>,<span class="number">2</span>],</span><br><span class="line">          [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>],</span><br><span class="line">          [<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>]]])</span><br><span class="line">    cl = ConvLayer(<span class="number">5</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>,IdentityActivator(),<span class="number">0.001</span>)</span><br><span class="line">    cl.filters[<span class="number">0</span>].weights = np.array(</span><br><span class="line">        [[[<span class="number">-1</span>,<span class="number">1</span>,<span class="number">0</span>],</span><br><span class="line">          [<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>],</span><br><span class="line">          [<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>]],</span><br><span class="line">         [[<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">0</span>],</span><br><span class="line">          [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>],</span><br><span class="line">          [<span class="number">0</span>,<span class="number">-1</span>,<span class="number">0</span>]],</span><br><span class="line">         [[<span class="number">0</span>,<span class="number">0</span>,<span class="number">-1</span>],</span><br><span class="line">          [<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>],</span><br><span class="line">          [<span class="number">1</span>,<span class="number">-1</span>,<span class="number">-1</span>]]], dtype=np.float64)</span><br><span class="line">    cl.filters[<span class="number">0</span>].bias=<span class="number">1</span></span><br><span class="line">    cl.filters[<span class="number">1</span>].weights = np.array(</span><br><span class="line">        [[[<span class="number">1</span>,<span class="number">1</span>,<span class="number">-1</span>],</span><br><span class="line">          [<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">1</span>],</span><br><span class="line">          [<span class="number">0</span>,<span class="number">-1</span>,<span class="number">1</span>]],</span><br><span class="line">         [[<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>],</span><br><span class="line">         [<span class="number">-1</span>,<span class="number">0</span>,<span class="number">-1</span>],</span><br><span class="line">          [<span class="number">-1</span>,<span class="number">1</span>,<span class="number">0</span>]],</span><br><span class="line">         [[<span class="number">-1</span>,<span class="number">0</span>,<span class="number">0</span>],</span><br><span class="line">          [<span class="number">-1</span>,<span class="number">0</span>,<span class="number">1</span>],</span><br><span class="line">          [<span class="number">-1</span>,<span class="number">0</span>,<span class="number">0</span>]]], dtype=np.float64)</span><br><span class="line">    <span class="keyword">return</span> a, b, cl</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gradient_check</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    梯度检查</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="comment"># 设计一个误差函数，取所有节点输出项之和</span></span><br><span class="line">    error_function = <span class="keyword">lambda</span> o: o.sum()</span><br><span class="line">    <span class="comment"># 计算forward值</span></span><br><span class="line">    a, b, cl = init_test()</span><br><span class="line">    cl.forward(a)</span><br><span class="line">    <span class="comment"># 求取sensitivity map，是一个全1数组</span></span><br><span class="line">    sensitivity_array = np.ones(cl.output_array.shape,</span><br><span class="line">                                dtype=np.float64)</span><br><span class="line">    <span class="comment"># 计算梯度</span></span><br><span class="line">    cl.backward(a, sensitivity_array,</span><br><span class="line">                  IdentityActivator())</span><br><span class="line">    <span class="comment"># 检查梯度</span></span><br><span class="line">    epsilon = <span class="number">10e-4</span></span><br><span class="line">    <span class="keyword">for</span> d <span class="keyword">in</span> range(cl.filters[<span class="number">0</span>].weights_grad.shape[<span class="number">0</span>]):</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(cl.filters[<span class="number">0</span>].weights_grad.shape[<span class="number">1</span>]):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(cl.filters[<span class="number">0</span>].weights_grad.shape[<span class="number">2</span>]):</span><br><span class="line">                cl.filters[<span class="number">0</span>].weights[d,i,j] += epsilon</span><br><span class="line">                cl.forward(a)</span><br><span class="line">                err1 = error_function(cl.output_array)</span><br><span class="line">                cl.filters[<span class="number">0</span>].weights[d,i,j] -= <span class="number">2</span>*epsilon</span><br><span class="line">                cl.forward(a)</span><br><span class="line">                err2 = error_function(cl.output_array)</span><br><span class="line">                expect_grad = (err1 - err2) / (<span class="number">2</span> * epsilon)</span><br><span class="line">                cl.filters[<span class="number">0</span>].weights[d,i,j] += epsilon</span><br><span class="line">                <span class="keyword">print</span> <span class="string">'weights(%d,%d,%d): expected - actural %f - %f'</span> % (</span><br><span class="line">                    d, i, j, expect_grad, cl.filters[<span class="number">0</span>].weights_grad[d,i,j])</span><br></pre></td></tr></table></figure>
+<p>上面代码值得思考的地方在于，传递给卷积层的sensitivity map是全1数组，留给读者自己推导一下为什么是这样（提示：激活函数选择了identity函数：<span class="math inline">\(f(x)=x\)</span>）。</p>
+<p>运行上面梯度检查的代码，我们得到的输出如下，期望的梯度和实际计算出的梯度一致，这证明我们的算法推导和代码实现确实是正确的。</p>
+<p><img src="http://p082waf5e.bkt.clouddn.com/15150473476635.jpg"></p>
+<p>以上就是卷积层的实现。</p>
+<h3 id="max-pooling层的实现">Max Pooling层的实现</h3>
+<p>max pooling层的实现相对简单，我们直接贴出全部代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MaxPoolingLayer</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, input_width, input_height, </span></span></span><br><span class="line"><span class="function"><span class="params">                 channel_number, filter_width, </span></span></span><br><span class="line"><span class="function"><span class="params">                 filter_height, stride)</span>:</span></span><br><span class="line">        self.input_width = input_width</span><br><span class="line">        self.input_height = input_height</span><br><span class="line">        self.channel_number = channel_number</span><br><span class="line">        self.filter_width = filter_width</span><br><span class="line">        self.filter_height = filter_height</span><br><span class="line">        self.stride = stride</span><br><span class="line">        self.output_width = (input_width - </span><br><span class="line">            filter_width) / self.stride + <span class="number">1</span></span><br><span class="line">        self.output_height = (input_height -</span><br><span class="line">            filter_height) / self.stride + <span class="number">1</span></span><br><span class="line">        self.output_array = np.zeros((self.channel_number,</span><br><span class="line">            self.output_height, self.output_width))</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, input_array)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> d <span class="keyword">in</span> range(self.channel_number):</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(self.output_height):</span><br><span class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> range(self.output_width):</span><br><span class="line">                    self.output_array[d,i,j] = (    </span><br><span class="line">                        get_patch(input_array[d], i, j,</span><br><span class="line">                            self.filter_width, </span><br><span class="line">                            self.filter_height, </span><br><span class="line">                            self.stride).max())</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">backward</span><span class="params">(self, input_array, sensitivity_array)</span>:</span></span><br><span class="line">        self.delta_array = np.zeros(input_array.shape)</span><br><span class="line">        <span class="keyword">for</span> d <span class="keyword">in</span> range(self.channel_number):</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(self.output_height):</span><br><span class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> range(self.output_width):</span><br><span class="line">                    patch_array = get_patch(</span><br><span class="line">                        input_array[d], i, j,</span><br><span class="line">                        self.filter_width, </span><br><span class="line">                        self.filter_height, </span><br><span class="line">                        self.stride)</span><br><span class="line">                    k, l = get_max_index(patch_array)</span><br><span class="line">                    self.delta_array[d, </span><br><span class="line">                        i * self.stride + k, </span><br><span class="line">                        j * self.stride + l] = \</span><br><span class="line">                        sensitivity_array[d,i,j]</span><br></pre></td></tr></table></figure>
+<h3 id="全连接层的实现">全连接层的实现</h3>
+<p>全连接层的实现和上一篇文章类似，在此就不再赘述了。至此，你已经拥有了实现了一个简单的卷积神经网络所需要的基本组件。对于卷积神经网络，现在有很多优秀的开源实现，因此我们并不需要真的自己去实现一个。贴出这些代码的目的是为了让我们更好的了解卷积神经网络的基本原理。</p>
+<h2 id="卷积神经网络的应用">卷积神经网络的应用</h2>
+<h3 id="mnist手写数字识别">MNIST手写数字识别</h3>
+<p><em>LeNet-5</em>是实现手写数字识别的卷积神经网络，在MNIST测试集上，它取得了0.8%的错误率。<em>LeNet-5</em>的结构如下：</p>
+<p><img src="http://p082waf5e.bkt.clouddn.com/15150474975624.jpg"></p>
+<p>关于<em>LeNet-5</em>的详细介绍，网上的资料很多，因此就不再重复了。感兴趣的读者可以尝试用我们自己实现的卷积神经网络代码去构造并训练<em>LeNet-5</em>（当然代码会更复杂一些）。</p>
+<h2 id="小结">小结</h2>
+<p>由于卷积神经网络的复杂性，我们写出了整个系列目前为止最长的一篇文章，相信读者也和作者一样累的要死。卷积神经网络是深度学习最重要的工具（我犹豫要不要写上『之一』呢），付出一些辛苦去理解它也是值得的。如果您真正理解了本文的内容，相当于迈过了入门深度学习最重要的一到门槛。在下一篇文章中，我们介绍深度学习另外一种非常重要的工具：循环神经网络，届时我们的系列文章也将完成过半。每篇文章都是一个过滤器，对于坚持到这里的读者们，入门深度学习曙光已现，加油。</p>
+<h2 id="参考资料">参考资料</h2>
+<ol type="1">
+<li><a href="http://cs231n.github.io/convolutional-networks/" target="_blank" rel="noopener">CS231n Convolutional Neural Networks for Visual Recognition</a></li>
+<li><a href="http://www.mamicode.com/info-detail-873243.html" target="_blank" rel="noopener">ReLu (Rectified Linear Units) 激活函数</a></li>
+<li>Jake Bouvrie, Notes on Convolutional Neural Networks, 2006</li>
+<li><a href="http://www.deeplearningbook.org/" target="_blank" rel="noopener">Ian Goodfellow, Yoshua Bengio, Aaron Courville, Deep Learning, MIT Press, 2016</a></li>
+</ol>
+<hr>
+<p>[转载于<a href="https://www.zybuluo.com/hanbingtao/note/485480" target="_blank" rel="noopener">零基础入门深度学习(4) - 卷积神经网络</a>]</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>感谢您的支持</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block;width:150px;height:150px;margin:auto 10px auto 10px">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Gaochao 微信支付"/>
+        <p style="text-align:center">WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block;width:150px;height:150px;margin:auto 10px auto 10px">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Gaochao 支付宝"/>
+        <p style="text-align:center">Alipay</p>
+      </div>
+    
+
+    
+
+    
+      <div id="alireward" style="display: inline-block;width:150px;height:150px;margin:auto 10px auto 10px">
+        <img id="alireward_qr" src="/images/alireward.png" alt="Gaochao 支付宝"/>
+        <p style="text-align:center">支付宝红包码</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DeepLearning/" rel="tag"># DeepLearning</a>
+          
+            <a href="/tags/CNN/" rel="tag"># CNN</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/19/神经网络和反向传播算法/" rel="next" title="深度学习系列（3）">
+                <i class="fa fa-chevron-left"></i> 深度学习系列（3）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars1.githubusercontent.com/u/2328224?s=400&v=4"
+                alt="Gaochao" />
+            
+              <p class="site-author-name" itemprop="name">Gaochao</p>
+              <p class="site-description motion-element" itemprop="description">Learning NLP by Python</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:chaogao@aiit.edu.cn" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/otter668" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/54262426" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/otter668" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#卷积神经网络"><span class="nav-number">1.</span> <span class="nav-text">&#x5377;&#x79EF;&#x795E;&#x7ECF;&#x7F51;&#x7EDC;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#往期回顾"><span class="nav-number">1.1.</span> <span class="nav-text">&#x5F80;&#x671F;&#x56DE;&#x987E;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个新的激活函数relu"><span class="nav-number">1.2.</span> <span class="nav-text">&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x6FC0;&#x6D3B;&#x51FD;&#x6570;&#x2014;&#x2014;Relu</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全连接网络-vs-卷积网络"><span class="nav-number">1.3.</span> <span class="nav-text">&#x5168;&#x8FDE;&#x63A5;&#x7F51;&#x7EDC; VS &#x5377;&#x79EF;&#x7F51;&#x7EDC;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卷积神经网络是啥"><span class="nav-number">1.4.</span> <span class="nav-text">&#x5377;&#x79EF;&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#x662F;&#x5565;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络架构"><span class="nav-number">1.4.1.</span> <span class="nav-text">&#x7F51;&#x7EDC;&#x67B6;&#x6784;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三维的层结构"><span class="nav-number">1.4.2.</span> <span class="nav-text">&#x4E09;&#x7EF4;&#x7684;&#x5C42;&#x7ED3;&#x6784;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卷积神经网络输出值的计算"><span class="nav-number">1.5.</span> <span class="nav-text">&#x5377;&#x79EF;&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#x8F93;&#x51FA;&#x503C;&#x7684;&#x8BA1;&#x7B97;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#卷积层输出值的计算"><span class="nav-number">1.5.1.</span> <span class="nav-text">&#x5377;&#x79EF;&#x5C42;&#x8F93;&#x51FA;&#x503C;&#x7684;&#x8BA1;&#x7B97;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用卷积公式来表达卷积层计算"><span class="nav-number">1.5.2.</span> <span class="nav-text">&#x7528;&#x5377;&#x79EF;&#x516C;&#x5F0F;&#x6765;&#x8868;&#x8FBE;&#x5377;&#x79EF;&#x5C42;&#x8BA1;&#x7B97;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pooling层输出值的计算"><span class="nav-number">1.5.3.</span> <span class="nav-text">Pooling&#x5C42;&#x8F93;&#x51FA;&#x503C;&#x7684;&#x8BA1;&#x7B97;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全连接层"><span class="nav-number">1.5.4.</span> <span class="nav-text">&#x5168;&#x8FDE;&#x63A5;&#x5C42;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卷积神经网络的训练"><span class="nav-number">1.6.</span> <span class="nav-text">&#x5377;&#x79EF;&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#x7684;&#x8BAD;&#x7EC3;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#卷积层的训练"><span class="nav-number">1.6.1.</span> <span class="nav-text">&#x5377;&#x79EF;&#x5C42;&#x7684;&#x8BAD;&#x7EC3;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#卷积层误差项的传递"><span class="nav-number">1.6.1.1.</span> <span class="nav-text">&#x5377;&#x79EF;&#x5C42;&#x8BEF;&#x5DEE;&#x9879;&#x7684;&#x4F20;&#x9012;</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#最简单情况下误差项的传递"><span class="nav-number">1.6.1.1.1.</span> <span class="nav-text">&#x6700;&#x7B80;&#x5355;&#x60C5;&#x51B5;&#x4E0B;&#x8BEF;&#x5DEE;&#x9879;&#x7684;&#x4F20;&#x9012;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#输入层深度为d时的误差传递"><span class="nav-number">1.6.1.1.2.</span> <span class="nav-text">&#x8F93;&#x5165;&#x5C42;&#x6DF1;&#x5EA6;&#x4E3A;D&#x65F6;&#x7684;&#x8BEF;&#x5DEE;&#x4F20;&#x9012;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#filter数量为n时的误差传递"><span class="nav-number">1.6.1.1.3.</span> <span class="nav-text">filter&#x6570;&#x91CF;&#x4E3A;N&#x65F6;&#x7684;&#x8BEF;&#x5DEE;&#x4F20;&#x9012;</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#卷积层filter权重梯度的计算"><span class="nav-number">1.6.1.2.</span> <span class="nav-text">&#x5377;&#x79EF;&#x5C42;filter&#x6743;&#x91CD;&#x68AF;&#x5EA6;&#x7684;&#x8BA1;&#x7B97;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pooling层的训练"><span class="nav-number">1.6.2.</span> <span class="nav-text">Pooling&#x5C42;&#x7684;&#x8BAD;&#x7EC3;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#max-pooling误差项的传递"><span class="nav-number">1.6.2.1.</span> <span class="nav-text">Max Pooling&#x8BEF;&#x5DEE;&#x9879;&#x7684;&#x4F20;&#x9012;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mean-pooling误差项的传递"><span class="nav-number">1.6.2.2.</span> <span class="nav-text">Mean Pooling&#x8BEF;&#x5DEE;&#x9879;&#x7684;&#x4F20;&#x9012;</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卷积神经网络的实现"><span class="nav-number">1.7.</span> <span class="nav-text">&#x5377;&#x79EF;&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#x7684;&#x5B9E;&#x73B0;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#卷积层的实现"><span class="nav-number">1.7.1.</span> <span class="nav-text">&#x5377;&#x79EF;&#x5C42;&#x7684;&#x5B9E;&#x73B0;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#卷积层初始化"><span class="nav-number">1.7.1.1.</span> <span class="nav-text">&#x5377;&#x79EF;&#x5C42;&#x521D;&#x59CB;&#x5316;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#卷积层前向计算的实现"><span class="nav-number">1.7.1.2.</span> <span class="nav-text">&#x5377;&#x79EF;&#x5C42;&#x524D;&#x5411;&#x8BA1;&#x7B97;&#x7684;&#x5B9E;&#x73B0;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#卷积层反向传播算法的实现"><span class="nav-number">1.7.1.3.</span> <span class="nav-text">&#x5377;&#x79EF;&#x5C42;&#x53CD;&#x5411;&#x4F20;&#x64AD;&#x7B97;&#x6CD5;&#x7684;&#x5B9E;&#x73B0;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#卷积层的梯度检查"><span class="nav-number">1.7.1.4.</span> <span class="nav-text">&#x5377;&#x79EF;&#x5C42;&#x7684;&#x68AF;&#x5EA6;&#x68C0;&#x67E5;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#max-pooling层的实现"><span class="nav-number">1.7.2.</span> <span class="nav-text">Max Pooling&#x5C42;&#x7684;&#x5B9E;&#x73B0;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全连接层的实现"><span class="nav-number">1.7.3.</span> <span class="nav-text">&#x5168;&#x8FDE;&#x63A5;&#x5C42;&#x7684;&#x5B9E;&#x73B0;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卷积神经网络的应用"><span class="nav-number">1.8.</span> <span class="nav-text">&#x5377;&#x79EF;&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#x7684;&#x5E94;&#x7528;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mnist手写数字识别"><span class="nav-number">1.8.1.</span> <span class="nav-text">MNIST&#x624B;&#x5199;&#x6570;&#x5B57;&#x8BC6;&#x522B;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">1.9.</span> <span class="nav-text">&#x5C0F;&#x7ED3;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">1.10.</span> <span class="nav-text">&#x53C2;&#x8003;&#x8D44;&#x6599;</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gaochao</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">31.9k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>

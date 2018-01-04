@@ -101,7 +101,7 @@
 <meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/屏幕快照%202017-11-30%20下午6.58.06.png">
 <meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/屏幕快照%202017-11-30%20下午7.04.19.png">
 <meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/屏幕快照%202017-11-30%20下午7.16.35.png">
-<meta property="og:updated_time" content="2017-12-20T07:33:44.997Z">
+<meta property="og:updated_time" content="2018-01-04T06:40:52.870Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简单问答系统">
 <meta name="twitter:description" content="简单问答系统 整体框架：">
@@ -366,7 +366,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,407
+                  1,393
                 </span>
               
 
@@ -405,11 +405,11 @@
       
         <h1 id="简单问答系统">简单问答系统</h1>
 <p>整体框架： <img src="http://p082waf5e.bkt.clouddn.com/智能问答系统架构.png"> <a id="more"></a></p>
-<h2 id="智能对话交互框架">1. 智能对话交互框架</h2>
+<h2 id="智能对话交互框架">智能对话交互框架</h2>
 <p><img src="http://p082waf5e.bkt.clouddn.com/屏幕快照%202017-11-30%20下午5.34.39.png"></p>
-<h2 id="智能对话交互核心技术">2. 智能对话交互核心技术</h2>
+<h2 id="智能对话交互核心技术">智能对话交互核心技术</h2>
 <p><img src="http://p082waf5e.bkt.clouddn.com/屏幕快照%202017-11-30%20下午5.37.45.png"></p>
-<h3 id="自然语言理解">2.1 自然语言理解</h3>
+<h3 id="自然语言理解">自然语言理解</h3>
 <p>语义表示<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>：</p>
 <ol type="1">
 <li>分布语义表示(Distributional semantics)</li>
@@ -420,10 +420,10 @@
 <p>注解： 分布语义表示比较简单，目前可以采用Word2Vec来进行词嵌入。 AliMe采用的是框架语义表示。。。</p>
 </blockquote>
 <p>整体自然语言理解的流程： <img src="http://p082waf5e.bkt.clouddn.com/屏幕快照%202017-11-30%20下午5.39.03.png"></p>
-<h3 id="意图分类">2.2 意图分类</h3>
+<h3 id="意图分类">意图分类</h3>
 <p>意图分类是一种文本分类，主要分为 基于规则的方法、基于传统机器学习的方 法和基于深度学习的方法，如 CNN<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>、LSTM<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>、RCNN<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>、C-LSTM<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> 及 FastText<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> 等。 <strong>同时也提到单纯使用word vector在分类效果上比不上复杂特征工程的SVM分类器</strong>，因此需要嵌入其他信息。如文章中提到把<strong>分布式表示和符号表示进行融合</strong>。 比如对于“刘德华的忘情水”这句话，通过知识库可以标注刘德华为 singer、忘情水为 song，期望能把 singer 和 song 这样的符号表示融入到网络中去。具体融合方法，既可以把符号标签进行 embedding，然后把 embedding 后的 vector 拼接到 word vector 后进行分类，也可以直接用 multi-hot 的方式拼接到 word vector 后面。 具体方案如图： <img src="http://p082waf5e.bkt.clouddn.com/屏幕快照%202017-11-30%20下午5.43.03.png"></p>
 <p>在以词为输入单位的 CNN 中，经常会遇到 OOV(Out-Of-Vocabulary) 问题，引入了 FastText<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> 来训练 word vector，对于 OOV，可以用其 subword 向量计算得到，有效地解决了 OOV 的问题。</p>
-<h3 id="属性抽取">2.3 属性抽取</h3>
+<h3 id="属性抽取">属性抽取</h3>
 <p>属性抽取问题可以抽象为一个序列标注问题，可以以字为单位进行序列标注，也可以以词为单位进行序列标注。 <img src="http://p082waf5e.bkt.clouddn.com/屏幕快照%202017-11-30%20下午6.58.06.png"></p>
 <p>属性抽取的方法，包括基于规则的方法和基于传统统计模型的方法，经典的如 CRF<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>，以及基于深度学习模型的方法。 2014年， 在 ARTIS 数据集上，RNN<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a> 模型的效果超过了 CRF。此后，R-CRF<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>、 LSTM<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>、Bi-RNN<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>、 Bi-LSTM-CRF<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a> 等各种模型陆续出来。 文中采用了如下结构： <img src="http://p082waf5e.bkt.clouddn.com/屏幕快照%202017-11-30%20下午7.04.19.png"></p>
 <ol type="1">
@@ -437,11 +437,11 @@
 <li><p>输出层</p></li>
 </ol>
 <p>在输出层有几种典型的做法，比如 Bi-LSTM+Softmax、Bi-LSTM+CRF 等。Bi-LSTM+Softmax 是把属性抽取在输出层当成了一个分类问题，得到的标注结果是局部最优，<strong>Bi-LSTM+CRF</strong> 在输出层会综合句子层面的信息得到全局最优结果。</p>
-<h3 id="意图排序">2.4 意图排序</h3>
+<h3 id="意图排序">意图排序</h3>
 <blockquote>
 <p>暂时不做</p>
 </blockquote>
-<h2 id="智能问答">3 智能问答</h2>
+<h2 id="智能问答">智能问答</h2>
 <p>三种问答任务：</p>
 <ol type="1">
 <li>用户提供 QA-Pairs，一问一答;</li>
@@ -449,8 +449,8 @@
 <li>针对非结构化的文本，进行基于阅读理解的问答。</li>
 </ol>
 <p>针对斯坦福大学的数据集 SquAD，有大量优秀的方法不断涌现，比如 match-LSTM<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a>、 BiDAF<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a>、DCN<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a>、FastQA<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a> 等。文献 <a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a> 给出了目前的通用框架，如图 11 所示，主要分为 4 层: <img src="http://p082waf5e.bkt.clouddn.com/屏幕快照%202017-11-30%20下午7.16.35.png"></p>
-<h2 id="智能聊天">4 智能聊天</h2>
-<p>暂不涉及 ## 5 对话管理 暂不涉及 ## 6 结束语 1. 自然语言理解方面，通过 CNN/ Bi-LSTM-CRF 等深度学习模型、分布式表示和符号表示的融合、多粒度的 word embedding、基于上下文的意图排序等方法， 构建了规则和深度学习模型有机融合的自然语言理解系统。 2. 智能问答方面，成功的将机器阅 读理解应用在了AliMe产品中。</p>
+<h2 id="智能聊天">智能聊天</h2>
+<p>暂不涉及 ## 对话管理 暂不涉及 ## 结束语 1. 自然语言理解方面，通过 CNN/ Bi-LSTM-CRF 等深度学习模型、分布式表示和符号表示的融合、多粒度的 word embedding、基于上下文的意图排序等方法， 构建了规则和深度学习模型有机融合的自然语言理解系统。 2. 智能问答方面，成功的将机器阅 读理解应用在了AliMe产品中。</p>
 <section class="footnotes">
 <hr>
 <ol>
@@ -651,7 +651,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -673,7 +673,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -741,7 +741,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简单问答系统"><span class="nav-number">1.</span> <span class="nav-text">&#x7B80;&#x5355;&#x95EE;&#x7B54;&#x7CFB;&#x7EDF;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#智能对话交互框架"><span class="nav-number">1.1.</span> <span class="nav-text">1. &#x667A;&#x80FD;&#x5BF9;&#x8BDD;&#x4EA4;&#x4E92;&#x6846;&#x67B6;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#智能对话交互核心技术"><span class="nav-number">1.2.</span> <span class="nav-text">2. &#x667A;&#x80FD;&#x5BF9;&#x8BDD;&#x4EA4;&#x4E92;&#x6838;&#x5FC3;&#x6280;&#x672F;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自然语言理解"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 &#x81EA;&#x7136;&#x8BED;&#x8A00;&#x7406;&#x89E3;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#意图分类"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 &#x610F;&#x56FE;&#x5206;&#x7C7B;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性抽取"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 &#x5C5E;&#x6027;&#x62BD;&#x53D6;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#意图排序"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4 &#x610F;&#x56FE;&#x6392;&#x5E8F;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#智能问答"><span class="nav-number">1.3.</span> <span class="nav-text">3 &#x667A;&#x80FD;&#x95EE;&#x7B54;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#智能聊天"><span class="nav-number">1.4.</span> <span class="nav-text">4 &#x667A;&#x80FD;&#x804A;&#x5929;</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简单问答系统"><span class="nav-number">1.</span> <span class="nav-text">&#x7B80;&#x5355;&#x95EE;&#x7B54;&#x7CFB;&#x7EDF;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#智能对话交互框架"><span class="nav-number">1.1.</span> <span class="nav-text">&#x667A;&#x80FD;&#x5BF9;&#x8BDD;&#x4EA4;&#x4E92;&#x6846;&#x67B6;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#智能对话交互核心技术"><span class="nav-number">1.2.</span> <span class="nav-text">&#x667A;&#x80FD;&#x5BF9;&#x8BDD;&#x4EA4;&#x4E92;&#x6838;&#x5FC3;&#x6280;&#x672F;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自然语言理解"><span class="nav-number">1.2.1.</span> <span class="nav-text">&#x81EA;&#x7136;&#x8BED;&#x8A00;&#x7406;&#x89E3;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#意图分类"><span class="nav-number">1.2.2.</span> <span class="nav-text">&#x610F;&#x56FE;&#x5206;&#x7C7B;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性抽取"><span class="nav-number">1.2.3.</span> <span class="nav-text">&#x5C5E;&#x6027;&#x62BD;&#x53D6;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#意图排序"><span class="nav-number">1.2.4.</span> <span class="nav-text">&#x610F;&#x56FE;&#x6392;&#x5E8F;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#智能问答"><span class="nav-number">1.3.</span> <span class="nav-text">&#x667A;&#x80FD;&#x95EE;&#x7B54;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#智能聊天"><span class="nav-number">1.4.</span> <span class="nav-text">&#x667A;&#x80FD;&#x804A;&#x5929;</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -761,7 +761,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -775,7 +775,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">19.5k</span>
+    <span title="Site words total count">31.9k</span>
   
 </div>
 
