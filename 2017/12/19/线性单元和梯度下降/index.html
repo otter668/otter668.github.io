@@ -99,7 +99,7 @@
 <meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15135682427407.jpg">
 <meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15135753958718.jpg">
 <meta property="og:image" content="http://p082waf5e.bkt.clouddn.com/15135754098432.jpg">
-<meta property="og:updated_time" content="2018-01-04T06:45:29.361Z">
+<meta property="og:updated_time" content="2018-01-04T09:45:58.258Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习系列（2）">
 <meta name="twitter:description" content="线性单元和梯度下降 往期回顾 在上一篇文章中，我们已经学会了编写一个简单的感知器，并用它来实现一个线性分类器。你应该还记得用来训练感知器的『感知器规则』。然而，我们并没有关心这个规则是怎么得到的。本文通过介绍另外一种『感知器』，也就是『线性单元』，来说明关于机器学习一些基本的概念，比如模型、目标函数、优化算法等等。这些概念对于所有的机器学习算法来说都是通用的，掌握了这些概念，就掌握了机器学习的基本">
@@ -403,7 +403,8 @@
       
         <h1 id="线性单元和梯度下降">线性单元和梯度下降</h1>
 <h2 id="往期回顾">往期回顾</h2>
-<p>在上一篇文章中，我们已经学会了编写一个简单的感知器，并用它来实现一个<strong>线性分类</strong>器。你应该还记得用来训练感知器的『感知器规则』。然而，我们并没有关心这个规则是怎么得到的。本文通过介绍另外一种『感知器』，也就是『线性单元』，来说明关于机器学习一些基本的概念，比如模型、目标函数、优化算法等等。这些概念对于所有的机器学习算法来说都是通用的，掌握了这些概念，就掌握了机器学习的基本套路。 <a id="more"></a></p>
+<p>在上一篇文章中，我们已经学会了编写一个简单的感知器，并用它来实现一个<strong>线性分类</strong>器。你应该还记得用来训练感知器的『感知器规则』。然而，我们并没有关心这个规则是怎么得到的。本文通过介绍另外一种『感知器』，也就是『线性单元』，来说明关于机器学习一些基本的概念，比如模型、目标函数、优化算法等等。这些概念对于所有的机器学习算法来说都是通用的，掌握了这些概念，就掌握了机器学习的基本套路。</p>
+<a id="more"></a>
 <h2 id="线性单元是啥">线性单元是啥</h2>
 <p>感知器有一个问题，当面对的数据集不是线性可分的时候，『感知器规则』可能无法收敛，这意味着我们永远也无法完成一个感知器的训练。为了解决这个问题，我们使用一个可导的线性函数来替代感知器的阶跃函数，这种感知器就叫做线性单元。线性单元在面对线性不可分的数据集时，会收敛到一个最佳的近似上。</p>
 <p>为了简单起见，我们可以设置线性单元的激活函数<span class="math inline">\(f\)</span>为 <span class="math display">\[f(x)=x\]</span> 这样的线性单元如下图所示 <img src="http://p082waf5e.bkt.clouddn.com/15135607306804.jpg"> 对比此前我们讲过的感知器 <img src="http://p082waf5e.bkt.clouddn.com/15135607524186.jpg"> 这样替换了激活函数<span class="math inline">\(f\)</span>之后，线性单元将返回一个<strong>实数值</strong>而不是0,1分类。因此线性单元用来解决<strong>回归问题</strong>而不是分类问题。 ## 线性单元的模型 当我们说模型时，我们实际上在谈论根据输入<span class="math inline">\(x\)</span>预测输出<span class="math inline">\(y\)</span>的算法。比如，<span class="math inline">\(x\)</span>可以是一个人的工作年限，<span class="math inline">\(y\)</span>可以是他的月薪，我们可以用某种算法来根据一个人的工作年限来预测他的收入。比如： <span class="math display">\[y=h(x)=w*x+b\]</span> 函数<span class="math inline">\(h(x)\)</span>叫做假设，而<span class="math inline">\(w\)</span>、<span class="math inline">\(b\)</span>是它的参数。我们假设参数<span class="math inline">\(w=1000\)</span>，参数<span class="math inline">\(b=500\)</span>，如果一个人的工作年限是5年的话，我们的模型会预测他的月薪为 <span class="math display">\[y=h(x)=1000*5+500=5500(元)\]</span> 你也许会说，这个模型太不靠谱了。是这样的，因为我们考虑的因素太少了，仅仅包含了工作年限。如果考虑更多的因素，比如所处的行业、公司、职级等等，可能预测就会靠谱的多。我们把工作年限、行业、公司、职级这些信息，称之为特征。对于一个工作了5年，在IT行业，百度工作，职级T6这样的人，我们可以用这样的一个特征向量来表示他 <span class="math display">\[x = (5, IT, 百度, T6)\]</span> 既然输入<span class="math inline">\(x\)</span>变成了一个具备四个特征的向量，相对应的，仅仅一个参数<span class="math inline">\(w\)</span>就不够用了，我们应该使用4个参数<span class="math inline">\(w_1\)</span>,<span class="math inline">\(w_2\)</span>,<span class="math inline">\(w_3\)</span>,<span class="math inline">\(w_4\)</span>，每个特征对应一个。这样，我们的模型就变成 <span class="math display">\[y=h(x)=w_1*x_1+w_2*x_2+w_3*x_3+w_4*x_4+b\]</span> 其中，<span class="math inline">\(x_1\)</span>对应工作年限，<span class="math inline">\(x_2\)</span>对应行业，<span class="math inline">\(x_3\)</span>对应公司，<span class="math inline">\(x_4\)</span>对应职级。 为了书写和计算方便，我们可以令<span class="math inline">\(w_0\)</span>等于<span class="math inline">\(b\)</span>，同时令<span class="math inline">\(w_0\)</span>对应于特征<span class="math inline">\(x_0\)</span>。由于<span class="math inline">\(x_0\)</span>其实并不存在，我们可以令它的值永远为1。也就是说 <span class="math display">\[b=w_0*x_0\qquad 其中x_0=1\]</span> 这样上面的式子就可以写成 <span class="math display">\[\begin{align}
@@ -756,7 +757,7 @@ x_m^{(i)} \\
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -778,7 +779,7 @@ x_m^{(i)} \\
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -880,7 +881,7 @@ x_m^{(i)} \\
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">31.9k</span>
+    <span title="Site words total count">41.8k</span>
   
 </div>
 
